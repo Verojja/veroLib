@@ -1,0 +1,14 @@
+
+"Zack! Hello, it's been too long."
+"Yes, we should hang out sometime next week if you're free."
+"That sounds excellent. I do enjoy you."
+"Wednesdays and Thursdays are typically the worst days for me..."
+-- (Brain-Consider Monday & Tuesday = best vs. Wednesday Thursday Worst)
+"That's perfect. I already have a date on Wednesday..."
+"...well, it's not really a date... more of an engagement"
+*audienceFace.DisplayEmotion("Surprise")
+"An engagement?!"
+"No no, not an engagement: more like an arrangement. An appointment.”
+My apologies, I was attempting to de-escalate rather than escalate."
+"Interesting example of how language works."
+"Good example of why I enjoy you.”
