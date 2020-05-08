@@ -1,0 +1,1621 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1" Build="10.50.6560.0" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="4418930" StatementId="1" StatementOptmLevel="FULL" StatementSubTreeCost="12608.8" StatementText="&#xD;&#xA;SELECT&#xD;&#xA;	ExistingClaim.claimId,&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.N_CLM)),'') AS VARCHAR(30)) AS originalClaimNumber,&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.C_CLM_SRCE)),'') AS CHAR(1)) AS claimSourceSystem,&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.C_RPT_SRCE)),'') AS CHAR(1)) AS claimEntryMethod,&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.F_VOID)),'') AS CHAR(1)) AS endedForReasonCode,&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.T_LOSS_DSC)),'') AS VARCHAR(50)) AS lossDescription,&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.T_LOSS_DSC_EXT)),'') AS VARCHAR(200)) AS lossDescriptionExtended,&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.C_CAT)),'') AS CHAR(1)) AS catastropheId,&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.F_PROP)),'') AS CHAR(1)) AS isClaimSearchProperty,&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.F_AUTO)),'') AS CHAR(1)) AS isClaimSearchAuto,&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.F_CSLTY)),'') AS CHAR(1)) AS isClaimSearchCasualty,&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.F_APD)),'') AS CHAR(1)) AS isClaimSearchAPD,&#xD;&#xA;	CASE&#xD;&#xA;		WHEN&#xD;&#xA;			CLT0001A.D_OCUR IS NULL&#xD;&#xA;		THEN&#xD;&#xA;			CAST(NULL AS DATETIME2(0))&#xD;&#xA;		ELSE&#xD;&#xA;			CASE&#xD;&#xA;				WHEN&#xD;&#xA;					/*ISNULL(&#xD;&#xA;						NULLIF(&#xD;&#xA;							LTRIM(&#xD;&#xA;								RTRIM(&#xD;&#xA;									CLT0001A.H_OCUR&#xD;&#xA;								)&#xD;&#xA;							),&#xD;&#xA;							''&#xD;&#xA;						),&#xD;&#xA;						'NULL'&#xD;&#xA;					) NOT LIKE '[0-9][0-9][0-9][0-9]'&#xD;&#xA;					*/&#xD;&#xA;					ISNULL(&#xD;&#xA;						CLT0001A.H_OCUR,&#xD;&#xA;						'NULL'&#xD;&#xA;					) NOT LIKE '[0-2][0-9][0-9][0-9]'&#xD;&#xA;				THEN&#xD;&#xA;					/*TODO: eventually add cases for the 1689/500,000,000+ rows that don't match the HHMM pattern*/&#xD;&#xA;					CAST(CLT0001A.D_OCUR AS DATETIME2(0))&#xD;&#xA;				ELSE&#xD;&#xA;					CASE&#xD;&#xA;						WHEN&#xD;&#xA;							ISNULL(CLT0001A.F_AM_PM,'DefaultBehavior') = 'P'&#xD;&#xA;							AND&#xD;&#xA;							(&#xD;&#xA;								(&#xD;&#xA;									CAST(&#xD;&#xA;										LEFT(&#xD;&#xA;											CLT0001A.H_OCUR,&#xD;&#xA;											2&#xD;&#xA;										)&#xD;&#xA;										AS SMALLINT&#xD;&#xA;									) + 12 &lt;= 23&#xD;&#xA;								)&#xD;&#xA;								OR&#xD;&#xA;								(&#xD;&#xA;									CAST(&#xD;&#xA;										LEFT(&#xD;&#xA;											CLT0001A.H_OCUR,&#xD;&#xA;											2&#xD;&#xA;										)&#xD;&#xA;										AS SMALLINT&#xD;&#xA;									) + 12 = 24&#xD;&#xA;									AND CAST(&#xD;&#xA;										RIGHT(&#xD;&#xA;											CLT0001A.H_OCUR,&#xD;&#xA;											2&#xD;&#xA;										)&#xD;&#xA;										AS SMALLINT&#xD;&#xA;									) = 0&#xD;&#xA;								)&#xD;&#xA;							)&#xD;&#xA;						THEN&#xD;&#xA;							DATEADD(&#xD;&#xA;								HOUR,&#xD;&#xA;								CAST(&#xD;&#xA;									LEFT(&#xD;&#xA;										CLT0001A.H_OCUR,&#xD;&#xA;										2&#xD;&#xA;									)&#xD;&#xA;									AS SMALLINT&#xD;&#xA;								) + 12,&#xD;&#xA;								DATEADD(&#xD;&#xA;									MINUTE,&#xD;&#xA;									CAST(&#xD;&#xA;										RIGHT(&#xD;&#xA;											CLT0001A.H_OCUR,&#xD;&#xA;											2&#xD;&#xA;										)&#xD;&#xA;										AS SMALLINT&#xD;&#xA;									),&#xD;&#xA;									CAST(CLT0001A.D_OCUR AS DATETIME2(0))&#xD;&#xA;								)&#xD;&#xA;							)&#xD;&#xA;						ELSE&#xD;&#xA;							/*AM or NULL-AMPM, with HHMM*/&#xD;&#xA;							DATEADD(&#xD;&#xA;								HOUR,&#xD;&#xA;									CAST(&#xD;&#xA;										LEFT(&#xD;&#xA;											CLT0001A.H_OCUR,&#xD;&#xA;											2&#xD;&#xA;										)&#xD;&#xA;										AS SMALLINT&#xD;&#xA;									),&#xD;&#xA;									DATEADD(&#xD;&#xA;										MINUTE,&#xD;&#xA;											CAST(&#xD;&#xA;												RIGHT(&#xD;&#xA;													CLT0001A.H_OCUR,&#xD;&#xA;													2&#xD;&#xA;												)&#xD;&#xA;												AS SMALLINT&#xD;&#xA;											)&#xD;&#xA;											,&#xD;&#xA;											CAST(CLT0001A.D_OCUR AS DATETIME2(0))&#xD;&#xA;									)&#xD;&#xA;							)&#xD;&#xA;					END&#xD;&#xA;			END&#xD;&#xA;	END AS dateOfLoss,&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.D_INS_CO_RCV)),'') AS CHAR(1)) AS insuranceCompanyReceivedDate,&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.D_RCV)),'') AS CHAR(1)) AS systemDateReceived,&#xD;&#xA;	/*isActive*/&#xD;&#xA;	/*dateInserted*/&#xD;&#xA;	CAST(NULLIF(RTRIM(LTRIM(CLT0001A.I_ALLCLM)),'') AS VARCHAR(11)) AS isoClaimId&#xD;&#xA;	INTO #ClaimData&#xD;&#xA;FROM&#xD;&#xA;	dbo.FM_ExtractFile&#xD;&#xA;	INNER JOIN ClaimSearch_Prod.dbo.CLT0001A&#xD;&#xA;		ON FM_ExtractFile.I_ALLCLM = CLT0001A.I_ALLCLM&#xD;&#xA;	LEFT OUTER JOIN dbo.Claim AS ExistingClaim&#xD;&#xA;		ON CLT0001A.I_ALLCLM = ExistingClaim.isoClaimId&#xD;&#xA;WHERE&#xD;&#xA;	/*Deprecating due to performance costs, and current profile state. RDW 20190306:&#xD;&#xA;		NULLIF(LTRIM(RTRIM(CLT0001A.I_ALLCLM)),'') IS NOT NULL&#xD;&#xA;	*/&#xD;&#xA;	CLT0001A.Date_Insert &gt;= CAST(&#xD;&#xA;		REPLACE(&#xD;&#xA;			CAST(&#xD;&#xA;				'20080101'&#xD;&#xA;				AS VARCHAR(10)&#xD;&#xA;			),&#xD;&#xA;		'-','')&#xD;&#xA;		AS INT&#xD;&#xA;	);" StatementType="SELECT INTO" QueryHash="0xE66DAB8464C0AAE6" QueryPlanHash="0xF212D6DB64895E3F">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan CachedPlanSize="216" CompileTime="299" CompileCPU="59" CompileMemory="1128">
+            <MissingIndexes>
+              <MissingIndexGroup Impact="54.2758">
+                <MissingIndex Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]">
+                  <ColumnGroup Usage="INEQUALITY">
+                    <Column Name="[Date_Insert]" ColumnId="94" />
+                  </ColumnGroup>
+                  <ColumnGroup Usage="INCLUDE">
+                    <Column Name="[I_ALLCLM]" ColumnId="2" />
+                    <Column Name="[N_CLM]" ColumnId="5" />
+                    <Column Name="[D_OCUR]" ColumnId="7" />
+                    <Column Name="[H_OCUR]" ColumnId="8" />
+                    <Column Name="[F_AM_PM]" ColumnId="9" />
+                    <Column Name="[C_CLM_SRCE]" ColumnId="15" />
+                    <Column Name="[C_RPT_SRCE]" ColumnId="20" />
+                    <Column Name="[F_VOID]" ColumnId="21" />
+                    <Column Name="[D_RCV]" ColumnId="23" />
+                    <Column Name="[D_INS_CO_RCV]" ColumnId="33" />
+                    <Column Name="[T_LOSS_DSC]" ColumnId="35" />
+                    <Column Name="[F_PROP]" ColumnId="50" />
+                    <Column Name="[F_AUTO]" ColumnId="51" />
+                    <Column Name="[F_CSLTY]" ColumnId="52" />
+                    <Column Name="[F_APD]" ColumnId="53" />
+                    <Column Name="[C_CAT]" ColumnId="91" />
+                    <Column Name="[T_LOSS_DSC_EXT]" ColumnId="92" />
+                  </ColumnGroup>
+                </MissingIndex>
+              </MissingIndexGroup>
+            </MissingIndexes>
+            <RelOp AvgRowSize="9" EstimateCPU="4.41893" EstimateIO="681.568" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="4418930" LogicalOp="Insert" NodeId="0" Parallel="false" PhysicalOp="Table Insert" EstimatedTotalSubtreeCost="12608.8">
+              <OutputList />
+              <Update DMLRequestSort="false">
+                <Object Table="[#ClaimData]" />
+                <SetPredicate>
+                  <ScalarOperator ScalarString="[#ClaimData].[claimId] = [ClaimSearch_Dev].[dbo].[Claim].[claimId] as [ExistingClaim].[claimId],[#ClaimData].[originalClaimNumber] = [Expr1013],[#ClaimData].[claimSourceSystem] = [Expr1014],[#ClaimData].[claimEntryMethod] = [Expr1015],[#ClaimData].[endedForReasonCode] = [Expr1016],[#ClaimData].[lossDescription] = [Expr1017],[#ClaimData].[lossDescriptionExtended] = [Expr1018],[#ClaimData].[catastropheId] = [Expr1019],[#ClaimData].[isClaimSearchProperty] = [Expr1020],[#ClaimData].[isClaimSearchAuto] = [Expr1021],[#ClaimData].[isClaimSearchCasualty] = [Expr1022],[#ClaimData].[isClaimSearchAPD] = [Expr1023],[#ClaimData].[dateOfLoss] = [Expr1024],[#ClaimData].[insuranceCompanyReceivedDate] = [Expr1025],[#ClaimData].[systemDateReceived] = [Expr1026],[#ClaimData].[isoClaimId] = [Expr1027]">
+                    <ScalarExpressionList>
+                      <ScalarOperator>
+                        <MultipleAssign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="claimId" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[Claim]" Alias="[ExistingClaim]" Column="claimId" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="originalClaimNumber" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1013" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="claimSourceSystem" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1014" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="claimEntryMethod" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1015" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="endedForReasonCode" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1016" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="lossDescription" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1017" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="lossDescriptionExtended" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1018" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="catastropheId" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1019" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="isClaimSearchProperty" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1020" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="isClaimSearchAuto" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1021" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="isClaimSearchCasualty" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1022" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="isClaimSearchAPD" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1023" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="dateOfLoss" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1024" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="insuranceCompanyReceivedDate" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1025" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="systemDateReceived" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1026" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#ClaimData]" Column="isoClaimId" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1027" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                        </MultipleAssign>
+                      </ScalarOperator>
+                    </ScalarExpressionList>
+                  </ScalarOperator>
+                </SetPredicate>
+                <RelOp AvgRowSize="187" EstimateCPU="0.441893" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="4418930" LogicalOp="Top" NodeId="1" Parallel="false" PhysicalOp="Top" EstimatedTotalSubtreeCost="11922.8">
+                  <OutputList>
+                    <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[Claim]" Alias="[ExistingClaim]" Column="claimId" />
+                    <ColumnReference Column="Expr1013" />
+                    <ColumnReference Column="Expr1014" />
+                    <ColumnReference Column="Expr1015" />
+                    <ColumnReference Column="Expr1016" />
+                    <ColumnReference Column="Expr1017" />
+                    <ColumnReference Column="Expr1018" />
+                    <ColumnReference Column="Expr1019" />
+                    <ColumnReference Column="Expr1020" />
+                    <ColumnReference Column="Expr1021" />
+                    <ColumnReference Column="Expr1022" />
+                    <ColumnReference Column="Expr1023" />
+                    <ColumnReference Column="Expr1024" />
+                    <ColumnReference Column="Expr1025" />
+                    <ColumnReference Column="Expr1026" />
+                    <ColumnReference Column="Expr1027" />
+                  </OutputList>
+                  <Top RowCount="true" IsPercent="false" WithTies="false">
+                    <TopExpression>
+                      <ScalarOperator ScalarString="(0)">
+                        <Const ConstValue="(0)" />
+                      </ScalarOperator>
+                    </TopExpression>
+                    <RelOp AvgRowSize="187" EstimateCPU="0.0285213" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="4418930" LogicalOp="Gather Streams" NodeId="2" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="11922.4">
+                      <OutputList>
+                        <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[Claim]" Alias="[ExistingClaim]" Column="claimId" />
+                        <ColumnReference Column="Expr1013" />
+                        <ColumnReference Column="Expr1014" />
+                        <ColumnReference Column="Expr1015" />
+                        <ColumnReference Column="Expr1016" />
+                        <ColumnReference Column="Expr1017" />
+                        <ColumnReference Column="Expr1018" />
+                        <ColumnReference Column="Expr1019" />
+                        <ColumnReference Column="Expr1020" />
+                        <ColumnReference Column="Expr1021" />
+                        <ColumnReference Column="Expr1022" />
+                        <ColumnReference Column="Expr1023" />
+                        <ColumnReference Column="Expr1024" />
+                        <ColumnReference Column="Expr1025" />
+                        <ColumnReference Column="Expr1026" />
+                        <ColumnReference Column="Expr1027" />
+                      </OutputList>
+                      <Parallelism>
+                        <RelOp AvgRowSize="187" EstimateCPU="5.75585" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="4418930" LogicalOp="Right Outer Join" NodeId="3" Parallel="true" PhysicalOp="Hash Match" EstimatedTotalSubtreeCost="11922.3">
+                          <OutputList>
+                            <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[Claim]" Alias="[ExistingClaim]" Column="claimId" />
+                            <ColumnReference Column="Expr1013" />
+                            <ColumnReference Column="Expr1014" />
+                            <ColumnReference Column="Expr1015" />
+                            <ColumnReference Column="Expr1016" />
+                            <ColumnReference Column="Expr1017" />
+                            <ColumnReference Column="Expr1018" />
+                            <ColumnReference Column="Expr1019" />
+                            <ColumnReference Column="Expr1020" />
+                            <ColumnReference Column="Expr1021" />
+                            <ColumnReference Column="Expr1022" />
+                            <ColumnReference Column="Expr1023" />
+                            <ColumnReference Column="Expr1024" />
+                            <ColumnReference Column="Expr1025" />
+                            <ColumnReference Column="Expr1026" />
+                            <ColumnReference Column="Expr1027" />
+                          </OutputList>
+                          <MemoryFractions Input="0" Output="0" />
+                          <Hash>
+                            <DefinedValues />
+                            <HashKeysBuild>
+                              <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[Claim]" Alias="[ExistingClaim]" Column="isoClaimId" />
+                            </HashKeysBuild>
+                            <HashKeysProbe>
+                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                            </HashKeysProbe>
+                            <ProbeResidual>
+                              <ScalarOperator ScalarString="[ClaimSearch_Prod].[dbo].[CLT0001A].[I_ALLCLM]=[ClaimSearch_Dev].[dbo].[Claim].[isoClaimId] as [ExistingClaim].[isoClaimId]">
+                                <Compare CompareOp="EQ">
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                    </Identifier>
+                                  </ScalarOperator>
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[Claim]" Alias="[ExistingClaim]" Column="isoClaimId" />
+                                    </Identifier>
+                                  </ScalarOperator>
+                                </Compare>
+                              </ScalarOperator>
+                            </ProbeResidual>
+                            <RelOp AvgRowSize="20" EstimateCPU="0.028503" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="1" LogicalOp="Distribute Streams" NodeId="4" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="0.0317861">
+                              <OutputList>
+                                <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[Claim]" Alias="[ExistingClaim]" Column="claimId" />
+                                <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[Claim]" Alias="[ExistingClaim]" Column="isoClaimId" />
+                              </OutputList>
+                              <Parallelism PartitioningType="Broadcast">
+                                <RelOp AvgRowSize="20" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="1" LogicalOp="Index Scan" NodeId="5" Parallel="false" PhysicalOp="Index Scan" EstimatedTotalSubtreeCost="0.0032831" TableCardinality="0">
+                                  <OutputList>
+                                    <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[Claim]" Alias="[ExistingClaim]" Column="claimId" />
+                                    <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[Claim]" Alias="[ExistingClaim]" Column="isoClaimId" />
+                                  </OutputList>
+                                  <IndexScan Ordered="false" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false">
+                                    <DefinedValues>
+                                      <DefinedValue>
+                                        <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[Claim]" Alias="[ExistingClaim]" Column="claimId" />
+                                      </DefinedValue>
+                                      <DefinedValue>
+                                        <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[Claim]" Alias="[ExistingClaim]" Column="isoClaimId" />
+                                      </DefinedValue>
+                                    </DefinedValues>
+                                    <Object Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[Claim]" Index="[NIX_Claim_isoClaimId]" Alias="[ExistingClaim]" IndexKind="NonClustered" />
+                                  </IndexScan>
+                                </RelOp>
+                              </Parallelism>
+                            </RelOp>
+                            <RelOp AvgRowSize="192" EstimateCPU="122.352" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="4418930" LogicalOp="Inner Join" NodeId="6" Parallel="true" PhysicalOp="Hash Match" EstimatedTotalSubtreeCost="11916.5">
+                              <OutputList>
+                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                <ColumnReference Column="Expr1013" />
+                                <ColumnReference Column="Expr1014" />
+                                <ColumnReference Column="Expr1015" />
+                                <ColumnReference Column="Expr1016" />
+                                <ColumnReference Column="Expr1017" />
+                                <ColumnReference Column="Expr1018" />
+                                <ColumnReference Column="Expr1019" />
+                                <ColumnReference Column="Expr1020" />
+                                <ColumnReference Column="Expr1021" />
+                                <ColumnReference Column="Expr1022" />
+                                <ColumnReference Column="Expr1023" />
+                                <ColumnReference Column="Expr1024" />
+                                <ColumnReference Column="Expr1025" />
+                                <ColumnReference Column="Expr1026" />
+                                <ColumnReference Column="Expr1027" />
+                              </OutputList>
+                              <MemoryFractions Input="1" Output="1" />
+                              <Hash>
+                                <DefinedValues />
+                                <HashKeysBuild>
+                                  <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[FM_ExtractFile]" Column="I_ALLCLM" />
+                                </HashKeysBuild>
+                                <HashKeysProbe>
+                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                </HashKeysProbe>
+                                <ProbeResidual>
+                                  <ScalarOperator ScalarString="[ClaimSearch_Prod].[dbo].[CLT0001A].[I_ALLCLM]=[ClaimSearch_Dev].[dbo].[FM_ExtractFile].[I_ALLCLM]">
+                                    <Compare CompareOp="EQ">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[FM_ExtractFile]" Column="I_ALLCLM" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                </ProbeResidual>
+                                <RelOp AvgRowSize="22" EstimateCPU="0.488124" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="4418800" LogicalOp="Bitmap Create" NodeId="7" Parallel="true" PhysicalOp="Bitmap" EstimatedTotalSubtreeCost="7.96093">
+                                  <OutputList>
+                                    <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[FM_ExtractFile]" Column="I_ALLCLM" />
+                                  </OutputList>
+                                  <Bitmap>
+                                    <DefinedValues>
+                                      <DefinedValue>
+                                        <ColumnReference Column="Bitmap1058" />
+                                      </DefinedValue>
+                                    </DefinedValues>
+                                    <HashKeys>
+                                      <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[FM_ExtractFile]" Column="I_ALLCLM" />
+                                    </HashKeys>
+                                    <RelOp AvgRowSize="22" EstimateCPU="0.488124" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="4418800" LogicalOp="Repartition Streams" NodeId="8" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="7.96093">
+                                      <OutputList>
+                                        <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[FM_ExtractFile]" Column="I_ALLCLM" />
+                                      </OutputList>
+                                      <Parallelism PartitioningType="Hash">
+                                        <PartitionColumns>
+                                          <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[FM_ExtractFile]" Column="I_ALLCLM" />
+                                        </PartitionColumns>
+                                        <RelOp AvgRowSize="22" EstimateCPU="0.151901" EstimateIO="7.3209" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="4418800" LogicalOp="Index Scan" NodeId="9" Parallel="true" PhysicalOp="Index Scan" EstimatedTotalSubtreeCost="7.4728" TableCardinality="4418800">
+                                          <OutputList>
+                                            <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[FM_ExtractFile]" Column="I_ALLCLM" />
+                                          </OutputList>
+                                          <IndexScan Ordered="false" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false">
+                                            <DefinedValues>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[FM_ExtractFile]" Column="I_ALLCLM" />
+                                              </DefinedValue>
+                                            </DefinedValues>
+                                            <Object Database="[ClaimSearch_Dev]" Schema="[dbo]" Table="[FM_ExtractFile]" Index="[i_allclm_idx]" IndexKind="NonClustered" />
+                                          </IndexScan>
+                                        </RelOp>
+                                      </Parallelism>
+                                    </RelOp>
+                                  </Bitmap>
+                                </RelOp>
+                                <RelOp AvgRowSize="192" EstimateCPU="393.17" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="564061000" LogicalOp="Repartition Streams" NodeId="10" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="11786.2">
+                                  <OutputList>
+                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                    <ColumnReference Column="Expr1013" />
+                                    <ColumnReference Column="Expr1014" />
+                                    <ColumnReference Column="Expr1015" />
+                                    <ColumnReference Column="Expr1016" />
+                                    <ColumnReference Column="Expr1017" />
+                                    <ColumnReference Column="Expr1018" />
+                                    <ColumnReference Column="Expr1019" />
+                                    <ColumnReference Column="Expr1020" />
+                                    <ColumnReference Column="Expr1021" />
+                                    <ColumnReference Column="Expr1022" />
+                                    <ColumnReference Column="Expr1023" />
+                                    <ColumnReference Column="Expr1024" />
+                                    <ColumnReference Column="Expr1025" />
+                                    <ColumnReference Column="Expr1026" />
+                                    <ColumnReference Column="Expr1027" />
+                                  </OutputList>
+                                  <Parallelism PartitioningType="Hash">
+                                    <PartitionColumns>
+                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                    </PartitionColumns>
+                                    <RelOp AvgRowSize="197" EstimateCPU="1.76269" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="564061000" LogicalOp="Compute Scalar" NodeId="11" Parallel="true" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="11384.6">
+                                      <OutputList>
+                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                        <ColumnReference Column="Expr1013" />
+                                        <ColumnReference Column="Expr1014" />
+                                        <ColumnReference Column="Expr1015" />
+                                        <ColumnReference Column="Expr1016" />
+                                        <ColumnReference Column="Expr1017" />
+                                        <ColumnReference Column="Expr1018" />
+                                        <ColumnReference Column="Expr1019" />
+                                        <ColumnReference Column="Expr1020" />
+                                        <ColumnReference Column="Expr1021" />
+                                        <ColumnReference Column="Expr1022" />
+                                        <ColumnReference Column="Expr1023" />
+                                        <ColumnReference Column="Expr1024" />
+                                        <ColumnReference Column="Expr1025" />
+                                        <ColumnReference Column="Expr1026" />
+                                        <ColumnReference Column="Expr1027" />
+                                      </OutputList>
+                                      <ComputeScalar>
+                                        <DefinedValues>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1013" />
+                                            <ScalarOperator ScalarString="CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[N_CLM]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[N_CLM])) END">
+                                              <IF>
+                                                <Condition>
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="EQ">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="N_CLM" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="''" />
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                </Condition>
+                                                <Then>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="NULL" />
+                                                  </ScalarOperator>
+                                                </Then>
+                                                <Else>
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="rtrim">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="ltrim">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="N_CLM" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                </Else>
+                                              </IF>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1014" />
+                                            <ScalarOperator ScalarString="CONVERT(char(1),CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[C_CLM_SRCE]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[C_CLM_SRCE])) END,0)">
+                                              <Convert DataType="char" Length="1" Style="0" Implicit="false">
+                                                <ScalarOperator>
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="rtrim">
+                                                              <ScalarOperator>
+                                                                <Intrinsic FunctionName="ltrim">
+                                                                  <ScalarOperator>
+                                                                    <Identifier>
+                                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CLM_SRCE" />
+                                                                    </Identifier>
+                                                                  </ScalarOperator>
+                                                                </Intrinsic>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="''" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CLM_SRCE" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </Convert>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1015" />
+                                            <ScalarOperator ScalarString="CONVERT(char(1),CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[C_RPT_SRCE]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[C_RPT_SRCE])) END,0)">
+                                              <Convert DataType="char" Length="1" Style="0" Implicit="false">
+                                                <ScalarOperator>
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="rtrim">
+                                                              <ScalarOperator>
+                                                                <Intrinsic FunctionName="ltrim">
+                                                                  <ScalarOperator>
+                                                                    <Identifier>
+                                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_RPT_SRCE" />
+                                                                    </Identifier>
+                                                                  </ScalarOperator>
+                                                                </Intrinsic>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="''" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_RPT_SRCE" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </Convert>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1016" />
+                                            <ScalarOperator ScalarString="CONVERT(char(1),CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[F_VOID]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[F_VOID])) END,0)">
+                                              <Convert DataType="char" Length="1" Style="0" Implicit="false">
+                                                <ScalarOperator>
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="rtrim">
+                                                              <ScalarOperator>
+                                                                <Intrinsic FunctionName="ltrim">
+                                                                  <ScalarOperator>
+                                                                    <Identifier>
+                                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_VOID" />
+                                                                    </Identifier>
+                                                                  </ScalarOperator>
+                                                                </Intrinsic>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="''" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_VOID" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </Convert>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1017" />
+                                            <ScalarOperator ScalarString="CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[T_LOSS_DSC]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[T_LOSS_DSC])) END">
+                                              <IF>
+                                                <Condition>
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="EQ">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="T_LOSS_DSC" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="''" />
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                </Condition>
+                                                <Then>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="NULL" />
+                                                  </ScalarOperator>
+                                                </Then>
+                                                <Else>
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="rtrim">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="ltrim">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="T_LOSS_DSC" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                </Else>
+                                              </IF>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1018" />
+                                            <ScalarOperator ScalarString="CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[T_LOSS_DSC_EXT]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[T_LOSS_DSC_EXT])) END">
+                                              <IF>
+                                                <Condition>
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="EQ">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="T_LOSS_DSC_EXT" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="''" />
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                </Condition>
+                                                <Then>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="NULL" />
+                                                  </ScalarOperator>
+                                                </Then>
+                                                <Else>
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="rtrim">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="ltrim">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="T_LOSS_DSC_EXT" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                </Else>
+                                              </IF>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1019" />
+                                            <ScalarOperator ScalarString="CONVERT(char(1),CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[C_CAT]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[C_CAT])) END,0)">
+                                              <Convert DataType="char" Length="1" Style="0" Implicit="false">
+                                                <ScalarOperator>
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="rtrim">
+                                                              <ScalarOperator>
+                                                                <Intrinsic FunctionName="ltrim">
+                                                                  <ScalarOperator>
+                                                                    <Identifier>
+                                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CAT" />
+                                                                    </Identifier>
+                                                                  </ScalarOperator>
+                                                                </Intrinsic>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="''" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CAT" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </Convert>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1020" />
+                                            <ScalarOperator ScalarString="CONVERT(char(1),CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[F_PROP]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[F_PROP])) END,0)">
+                                              <Convert DataType="char" Length="1" Style="0" Implicit="false">
+                                                <ScalarOperator>
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="rtrim">
+                                                              <ScalarOperator>
+                                                                <Intrinsic FunctionName="ltrim">
+                                                                  <ScalarOperator>
+                                                                    <Identifier>
+                                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_PROP" />
+                                                                    </Identifier>
+                                                                  </ScalarOperator>
+                                                                </Intrinsic>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="''" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_PROP" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </Convert>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1021" />
+                                            <ScalarOperator ScalarString="CONVERT(char(1),CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[F_AUTO]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[F_AUTO])) END,0)">
+                                              <Convert DataType="char" Length="1" Style="0" Implicit="false">
+                                                <ScalarOperator>
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="rtrim">
+                                                              <ScalarOperator>
+                                                                <Intrinsic FunctionName="ltrim">
+                                                                  <ScalarOperator>
+                                                                    <Identifier>
+                                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_AUTO" />
+                                                                    </Identifier>
+                                                                  </ScalarOperator>
+                                                                </Intrinsic>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="''" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_AUTO" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </Convert>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1022" />
+                                            <ScalarOperator ScalarString="CONVERT(char(1),CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[F_CSLTY]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[F_CSLTY])) END,0)">
+                                              <Convert DataType="char" Length="1" Style="0" Implicit="false">
+                                                <ScalarOperator>
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="rtrim">
+                                                              <ScalarOperator>
+                                                                <Intrinsic FunctionName="ltrim">
+                                                                  <ScalarOperator>
+                                                                    <Identifier>
+                                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_CSLTY" />
+                                                                    </Identifier>
+                                                                  </ScalarOperator>
+                                                                </Intrinsic>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="''" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_CSLTY" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </Convert>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1023" />
+                                            <ScalarOperator ScalarString="CONVERT(char(1),CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[F_APD]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[F_APD])) END,0)">
+                                              <Convert DataType="char" Length="1" Style="0" Implicit="false">
+                                                <ScalarOperator>
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="rtrim">
+                                                              <ScalarOperator>
+                                                                <Intrinsic FunctionName="ltrim">
+                                                                  <ScalarOperator>
+                                                                    <Identifier>
+                                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_APD" />
+                                                                    </Identifier>
+                                                                  </ScalarOperator>
+                                                                </Intrinsic>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="''" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_APD" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </Convert>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1024" />
+                                            <ScalarOperator ScalarString="CASE WHEN [ClaimSearch_Prod].[dbo].[CLT0001A].[D_OCUR] IS NULL THEN NULL ELSE CASE WHEN NOT isnull([ClaimSearch_Prod].[dbo].[CLT0001A].[H_OCUR],'NULL') like '[0-2][0-9][0-9][0-9]' THEN CONVERT(datetime2(0),[ClaimSearch_Prod].[dbo].[CLT0001A].[D_OCUR],0) ELSE CASE WHEN isnull([ClaimSearch_Prod].[dbo].[CLT0001A].[F_AM_PM],'D')='P' AND ((CONVERT_IMPLICIT(int,CONVERT(smallint,substring([ClaimSearch_Prod].[dbo].[CLT0001A].[H_OCUR],(1),(2)),0),0)+(12))&lt;=(23) OR (CONVERT_IMPLICIT(int,CONVERT(smallint,substring([ClaimSearch_Prod].[dbo].[CLT0001A].[H_OCUR],(1),(2)),0),0)+(12))=(24) AND CONVERT(smallint,right([ClaimSearch_Prod].[dbo].[CLT0001A].[H_OCUR],(2)),0)=(0)) THEN dateadd(hour,CONVERT_IMPLICIT(int,CONVERT(smallint,substring([ClaimSearch_Prod].[dbo].[CLT0001A].[H_OCUR],(1),(2)),0),0)+(12),dateadd(minute,CONVERT_IMPLICIT(int,CONVERT(smallint,right([ClaimSearch_Prod].[dbo].[CLT0001A].[H_OCUR],(2)),0),0),CONVERT(datetime2(0),[ClaimSearch_Prod].[dbo].[CLT0001A].[D_OCUR],0))) ELSE dateadd(hour,CONVERT_IMPLICIT(int,CONVERT(smallint,substring([ClaimSearch_Prod].[dbo].[CLT0001A].[H_OCUR],(1),(2)),0),0),dateadd(minute,CONVERT_IMPLICIT(int,CONVERT(smallint,right([ClaimSearch_Prod].[dbo].[CLT0001A].[H_OCUR],(2)),0),0),CONVERT(datetime2(0),[ClaimSearch_Prod].[dbo].[CLT0001A].[D_OCUR],0))) END END END">
+                                              <IF>
+                                                <Condition>
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="IS">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_OCUR" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                </Condition>
+                                                <Then>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="NULL" />
+                                                  </ScalarOperator>
+                                                </Then>
+                                                <Else>
+                                                  <ScalarOperator>
+                                                    <IF>
+                                                      <Condition>
+                                                        <ScalarOperator>
+                                                          <Logical Operation="NOT">
+                                                            <ScalarOperator>
+                                                              <Intrinsic FunctionName="like">
+                                                                <ScalarOperator>
+                                                                  <Intrinsic FunctionName="isnull">
+                                                                    <ScalarOperator>
+                                                                      <Identifier>
+                                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="H_OCUR" />
+                                                                      </Identifier>
+                                                                    </ScalarOperator>
+                                                                    <ScalarOperator>
+                                                                      <Const ConstValue="'NULL'" />
+                                                                    </ScalarOperator>
+                                                                  </Intrinsic>
+                                                                </ScalarOperator>
+                                                                <ScalarOperator>
+                                                                  <Const ConstValue="'[0-2][0-9][0-9][0-9]'" />
+                                                                </ScalarOperator>
+                                                              </Intrinsic>
+                                                            </ScalarOperator>
+                                                          </Logical>
+                                                        </ScalarOperator>
+                                                      </Condition>
+                                                      <Then>
+                                                        <ScalarOperator>
+                                                          <Convert DataType="datetime2" Style="0" Implicit="false">
+                                                            <ScalarOperator>
+                                                              <Identifier>
+                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_OCUR" />
+                                                              </Identifier>
+                                                            </ScalarOperator>
+                                                          </Convert>
+                                                        </ScalarOperator>
+                                                      </Then>
+                                                      <Else>
+                                                        <ScalarOperator>
+                                                          <IF>
+                                                            <Condition>
+                                                              <ScalarOperator>
+                                                                <Logical Operation="AND">
+                                                                  <ScalarOperator>
+                                                                    <Compare CompareOp="EQ">
+                                                                      <ScalarOperator>
+                                                                        <Intrinsic FunctionName="isnull">
+                                                                          <ScalarOperator>
+                                                                            <Identifier>
+                                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_AM_PM" />
+                                                                            </Identifier>
+                                                                          </ScalarOperator>
+                                                                          <ScalarOperator>
+                                                                            <Const ConstValue="'D'" />
+                                                                          </ScalarOperator>
+                                                                        </Intrinsic>
+                                                                      </ScalarOperator>
+                                                                      <ScalarOperator>
+                                                                        <Const ConstValue="'P'" />
+                                                                      </ScalarOperator>
+                                                                    </Compare>
+                                                                  </ScalarOperator>
+                                                                  <ScalarOperator>
+                                                                    <Logical Operation="OR">
+                                                                      <ScalarOperator>
+                                                                        <Compare CompareOp="LE">
+                                                                          <ScalarOperator>
+                                                                            <Arithmetic Operation="ADD">
+                                                                              <ScalarOperator>
+                                                                                <Convert DataType="int" Style="0" Implicit="true">
+                                                                                  <ScalarOperator>
+                                                                                    <Convert DataType="smallint" Style="0" Implicit="false">
+                                                                                      <ScalarOperator>
+                                                                                        <Intrinsic FunctionName="substring">
+                                                                                          <ScalarOperator>
+                                                                                            <Identifier>
+                                                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="H_OCUR" />
+                                                                                            </Identifier>
+                                                                                          </ScalarOperator>
+                                                                                          <ScalarOperator>
+                                                                                            <Const ConstValue="(1)" />
+                                                                                          </ScalarOperator>
+                                                                                          <ScalarOperator>
+                                                                                            <Const ConstValue="(2)" />
+                                                                                          </ScalarOperator>
+                                                                                        </Intrinsic>
+                                                                                      </ScalarOperator>
+                                                                                    </Convert>
+                                                                                  </ScalarOperator>
+                                                                                </Convert>
+                                                                              </ScalarOperator>
+                                                                              <ScalarOperator>
+                                                                                <Const ConstValue="(12)" />
+                                                                              </ScalarOperator>
+                                                                            </Arithmetic>
+                                                                          </ScalarOperator>
+                                                                          <ScalarOperator>
+                                                                            <Const ConstValue="(23)" />
+                                                                          </ScalarOperator>
+                                                                        </Compare>
+                                                                      </ScalarOperator>
+                                                                      <ScalarOperator>
+                                                                        <Logical Operation="AND">
+                                                                          <ScalarOperator>
+                                                                            <Compare CompareOp="EQ">
+                                                                              <ScalarOperator>
+                                                                                <Arithmetic Operation="ADD">
+                                                                                  <ScalarOperator>
+                                                                                    <Convert DataType="int" Style="0" Implicit="true">
+                                                                                      <ScalarOperator>
+                                                                                        <Convert DataType="smallint" Style="0" Implicit="false">
+                                                                                          <ScalarOperator>
+                                                                                            <Intrinsic FunctionName="substring">
+                                                                                              <ScalarOperator>
+                                                                                                <Identifier>
+                                                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="H_OCUR" />
+                                                                                                </Identifier>
+                                                                                              </ScalarOperator>
+                                                                                              <ScalarOperator>
+                                                                                                <Const ConstValue="(1)" />
+                                                                                              </ScalarOperator>
+                                                                                              <ScalarOperator>
+                                                                                                <Const ConstValue="(2)" />
+                                                                                              </ScalarOperator>
+                                                                                            </Intrinsic>
+                                                                                          </ScalarOperator>
+                                                                                        </Convert>
+                                                                                      </ScalarOperator>
+                                                                                    </Convert>
+                                                                                  </ScalarOperator>
+                                                                                  <ScalarOperator>
+                                                                                    <Const ConstValue="(12)" />
+                                                                                  </ScalarOperator>
+                                                                                </Arithmetic>
+                                                                              </ScalarOperator>
+                                                                              <ScalarOperator>
+                                                                                <Const ConstValue="(24)" />
+                                                                              </ScalarOperator>
+                                                                            </Compare>
+                                                                          </ScalarOperator>
+                                                                          <ScalarOperator>
+                                                                            <Compare CompareOp="EQ">
+                                                                              <ScalarOperator>
+                                                                                <Convert DataType="smallint" Style="0" Implicit="false">
+                                                                                  <ScalarOperator>
+                                                                                    <Intrinsic FunctionName="right">
+                                                                                      <ScalarOperator>
+                                                                                        <Identifier>
+                                                                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="H_OCUR" />
+                                                                                        </Identifier>
+                                                                                      </ScalarOperator>
+                                                                                      <ScalarOperator>
+                                                                                        <Const ConstValue="(2)" />
+                                                                                      </ScalarOperator>
+                                                                                    </Intrinsic>
+                                                                                  </ScalarOperator>
+                                                                                </Convert>
+                                                                              </ScalarOperator>
+                                                                              <ScalarOperator>
+                                                                                <Const ConstValue="(0)" />
+                                                                              </ScalarOperator>
+                                                                            </Compare>
+                                                                          </ScalarOperator>
+                                                                        </Logical>
+                                                                      </ScalarOperator>
+                                                                    </Logical>
+                                                                  </ScalarOperator>
+                                                                </Logical>
+                                                              </ScalarOperator>
+                                                            </Condition>
+                                                            <Then>
+                                                              <ScalarOperator>
+                                                                <Intrinsic FunctionName="dateadd">
+                                                                  <ScalarOperator>
+                                                                    <Const ConstValue="(6)" />
+                                                                  </ScalarOperator>
+                                                                  <ScalarOperator>
+                                                                    <Arithmetic Operation="ADD">
+                                                                      <ScalarOperator>
+                                                                        <Convert DataType="int" Style="0" Implicit="true">
+                                                                          <ScalarOperator>
+                                                                            <Convert DataType="smallint" Style="0" Implicit="false">
+                                                                              <ScalarOperator>
+                                                                                <Intrinsic FunctionName="substring">
+                                                                                  <ScalarOperator>
+                                                                                    <Identifier>
+                                                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="H_OCUR" />
+                                                                                    </Identifier>
+                                                                                  </ScalarOperator>
+                                                                                  <ScalarOperator>
+                                                                                    <Const ConstValue="(1)" />
+                                                                                  </ScalarOperator>
+                                                                                  <ScalarOperator>
+                                                                                    <Const ConstValue="(2)" />
+                                                                                  </ScalarOperator>
+                                                                                </Intrinsic>
+                                                                              </ScalarOperator>
+                                                                            </Convert>
+                                                                          </ScalarOperator>
+                                                                        </Convert>
+                                                                      </ScalarOperator>
+                                                                      <ScalarOperator>
+                                                                        <Const ConstValue="(12)" />
+                                                                      </ScalarOperator>
+                                                                    </Arithmetic>
+                                                                  </ScalarOperator>
+                                                                  <ScalarOperator>
+                                                                    <Intrinsic FunctionName="dateadd">
+                                                                      <ScalarOperator>
+                                                                        <Const ConstValue="(7)" />
+                                                                      </ScalarOperator>
+                                                                      <ScalarOperator>
+                                                                        <Convert DataType="int" Style="0" Implicit="true">
+                                                                          <ScalarOperator>
+                                                                            <Convert DataType="smallint" Style="0" Implicit="false">
+                                                                              <ScalarOperator>
+                                                                                <Intrinsic FunctionName="right">
+                                                                                  <ScalarOperator>
+                                                                                    <Identifier>
+                                                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="H_OCUR" />
+                                                                                    </Identifier>
+                                                                                  </ScalarOperator>
+                                                                                  <ScalarOperator>
+                                                                                    <Const ConstValue="(2)" />
+                                                                                  </ScalarOperator>
+                                                                                </Intrinsic>
+                                                                              </ScalarOperator>
+                                                                            </Convert>
+                                                                          </ScalarOperator>
+                                                                        </Convert>
+                                                                      </ScalarOperator>
+                                                                      <ScalarOperator>
+                                                                        <Convert DataType="datetime2" Style="0" Implicit="false">
+                                                                          <ScalarOperator>
+                                                                            <Identifier>
+                                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_OCUR" />
+                                                                            </Identifier>
+                                                                          </ScalarOperator>
+                                                                        </Convert>
+                                                                      </ScalarOperator>
+                                                                    </Intrinsic>
+                                                                  </ScalarOperator>
+                                                                </Intrinsic>
+                                                              </ScalarOperator>
+                                                            </Then>
+                                                            <Else>
+                                                              <ScalarOperator>
+                                                                <Intrinsic FunctionName="dateadd">
+                                                                  <ScalarOperator>
+                                                                    <Const ConstValue="(6)" />
+                                                                  </ScalarOperator>
+                                                                  <ScalarOperator>
+                                                                    <Convert DataType="int" Style="0" Implicit="true">
+                                                                      <ScalarOperator>
+                                                                        <Convert DataType="smallint" Style="0" Implicit="false">
+                                                                          <ScalarOperator>
+                                                                            <Intrinsic FunctionName="substring">
+                                                                              <ScalarOperator>
+                                                                                <Identifier>
+                                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="H_OCUR" />
+                                                                                </Identifier>
+                                                                              </ScalarOperator>
+                                                                              <ScalarOperator>
+                                                                                <Const ConstValue="(1)" />
+                                                                              </ScalarOperator>
+                                                                              <ScalarOperator>
+                                                                                <Const ConstValue="(2)" />
+                                                                              </ScalarOperator>
+                                                                            </Intrinsic>
+                                                                          </ScalarOperator>
+                                                                        </Convert>
+                                                                      </ScalarOperator>
+                                                                    </Convert>
+                                                                  </ScalarOperator>
+                                                                  <ScalarOperator>
+                                                                    <Intrinsic FunctionName="dateadd">
+                                                                      <ScalarOperator>
+                                                                        <Const ConstValue="(7)" />
+                                                                      </ScalarOperator>
+                                                                      <ScalarOperator>
+                                                                        <Convert DataType="int" Style="0" Implicit="true">
+                                                                          <ScalarOperator>
+                                                                            <Convert DataType="smallint" Style="0" Implicit="false">
+                                                                              <ScalarOperator>
+                                                                                <Intrinsic FunctionName="right">
+                                                                                  <ScalarOperator>
+                                                                                    <Identifier>
+                                                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="H_OCUR" />
+                                                                                    </Identifier>
+                                                                                  </ScalarOperator>
+                                                                                  <ScalarOperator>
+                                                                                    <Const ConstValue="(2)" />
+                                                                                  </ScalarOperator>
+                                                                                </Intrinsic>
+                                                                              </ScalarOperator>
+                                                                            </Convert>
+                                                                          </ScalarOperator>
+                                                                        </Convert>
+                                                                      </ScalarOperator>
+                                                                      <ScalarOperator>
+                                                                        <Convert DataType="datetime2" Style="0" Implicit="false">
+                                                                          <ScalarOperator>
+                                                                            <Identifier>
+                                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_OCUR" />
+                                                                            </Identifier>
+                                                                          </ScalarOperator>
+                                                                        </Convert>
+                                                                      </ScalarOperator>
+                                                                    </Intrinsic>
+                                                                  </ScalarOperator>
+                                                                </Intrinsic>
+                                                              </ScalarOperator>
+                                                            </Else>
+                                                          </IF>
+                                                        </ScalarOperator>
+                                                      </Else>
+                                                    </IF>
+                                                  </ScalarOperator>
+                                                </Else>
+                                              </IF>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1025" />
+                                            <ScalarOperator ScalarString="CONVERT(char(1),CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[D_INS_CO_RCV]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[D_INS_CO_RCV])) END,0)">
+                                              <Convert DataType="char" Length="1" Style="0" Implicit="false">
+                                                <ScalarOperator>
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="rtrim">
+                                                              <ScalarOperator>
+                                                                <Intrinsic FunctionName="ltrim">
+                                                                  <ScalarOperator>
+                                                                    <Identifier>
+                                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_INS_CO_RCV" />
+                                                                    </Identifier>
+                                                                  </ScalarOperator>
+                                                                </Intrinsic>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="''" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_INS_CO_RCV" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </Convert>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1026" />
+                                            <ScalarOperator ScalarString="CONVERT(char(1),CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[D_RCV]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[D_RCV])) END,0)">
+                                              <Convert DataType="char" Length="1" Style="0" Implicit="false">
+                                                <ScalarOperator>
+                                                  <IF>
+                                                    <Condition>
+                                                      <ScalarOperator>
+                                                        <Compare CompareOp="EQ">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="rtrim">
+                                                              <ScalarOperator>
+                                                                <Intrinsic FunctionName="ltrim">
+                                                                  <ScalarOperator>
+                                                                    <Identifier>
+                                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_RCV" />
+                                                                    </Identifier>
+                                                                  </ScalarOperator>
+                                                                </Intrinsic>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                          <ScalarOperator>
+                                                            <Const ConstValue="''" />
+                                                          </ScalarOperator>
+                                                        </Compare>
+                                                      </ScalarOperator>
+                                                    </Condition>
+                                                    <Then>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="NULL" />
+                                                      </ScalarOperator>
+                                                    </Then>
+                                                    <Else>
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_RCV" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Else>
+                                                  </IF>
+                                                </ScalarOperator>
+                                              </Convert>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                          <DefinedValue>
+                                            <ColumnReference Column="Expr1027" />
+                                            <ScalarOperator ScalarString="CASE WHEN rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[I_ALLCLM]))='' THEN NULL ELSE rtrim(ltrim([ClaimSearch_Prod].[dbo].[CLT0001A].[I_ALLCLM])) END">
+                                              <IF>
+                                                <Condition>
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="EQ">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="ltrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="''" />
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                </Condition>
+                                                <Then>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="NULL" />
+                                                  </ScalarOperator>
+                                                </Then>
+                                                <Else>
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="rtrim">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="ltrim">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                </Else>
+                                              </IF>
+                                            </ScalarOperator>
+                                          </DefinedValue>
+                                        </DefinedValues>
+                                        <RelOp AvgRowSize="223" EstimateCPU="19.3896" EstimateIO="11363.4" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="564061000" LogicalOp="Table Scan" NodeId="12" Parallel="true" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="11382.8" TableCardinality="564061000">
+                                          <OutputList>
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="N_CLM" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_OCUR" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="H_OCUR" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_AM_PM" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CLM_SRCE" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_RPT_SRCE" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_VOID" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_RCV" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_INS_CO_RCV" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="T_LOSS_DSC" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_PROP" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_AUTO" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_CSLTY" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_APD" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CAT" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="T_LOSS_DSC_EXT" />
+                                          </OutputList>
+                                          <TableScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false">
+                                            <DefinedValues>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="N_CLM" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_OCUR" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="H_OCUR" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_AM_PM" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CLM_SRCE" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_RPT_SRCE" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_VOID" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_RCV" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_INS_CO_RCV" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="T_LOSS_DSC" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_PROP" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_AUTO" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_CSLTY" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="F_APD" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CAT" />
+                                              </DefinedValue>
+                                              <DefinedValue>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="T_LOSS_DSC_EXT" />
+                                              </DefinedValue>
+                                            </DefinedValues>
+                                            <Object Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" IndexKind="Heap" />
+                                            <Predicate>
+                                              <ScalarOperator ScalarString="[ClaimSearch_Prod].[dbo].[CLT0001A].[Date_Insert]&gt;=(20080101) AND PROBE([Bitmap1058],[ClaimSearch_Prod].[dbo].[CLT0001A].[I_ALLCLM])">
+                                                <Logical Operation="AND">
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="GE">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="Date_Insert" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="(20080101)" />
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="PROBE">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Column="Bitmap1058" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                </Logical>
+                                              </ScalarOperator>
+                                            </Predicate>
+                                          </TableScan>
+                                        </RelOp>
+                                      </ComputeScalar>
+                                    </RelOp>
+                                  </Parallelism>
+                                </RelOp>
+                              </Hash>
+                            </RelOp>
+                          </Hash>
+                        </RelOp>
+                      </Parallelism>
+                    </RelOp>
+                  </Top>
+                </RelOp>
+              </Update>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

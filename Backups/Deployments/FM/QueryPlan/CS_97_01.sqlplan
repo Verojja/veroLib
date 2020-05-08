@@ -1,0 +1,826 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1" Build="10.50.6560.0" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementEstRows="6978210000" StatementId="1" StatementOptmLevel="FULL" StatementSubTreeCost="89409.4" StatementText="&#xD;&#xA;SELECT * FROM CS.CLT00097" StatementType="SELECT" QueryHash="0x182F62CDDEE43D69" QueryPlanHash="0xDA3A307B7A71DBE1">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan CachedPlanSize="64" CompileTime="48" CompileCPU="6" CompileMemory="392">
+            <RelOp AvgRowSize="149" EstimateCPU="697.821" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="6978210000" LogicalOp="Concatenation" NodeId="0" Parallel="false" PhysicalOp="Concatenation" EstimatedTotalSubtreeCost="89409.4">
+              <OutputList>
+                <ColumnReference Column="Union1016" />
+                <ColumnReference Column="Union1017" />
+                <ColumnReference Column="Union1018" />
+                <ColumnReference Column="Union1019" />
+                <ColumnReference Column="Union1020" />
+                <ColumnReference Column="Union1021" />
+                <ColumnReference Column="Union1022" />
+                <ColumnReference Column="Union1023" />
+                <ColumnReference Column="Union1024" />
+                <ColumnReference Column="Union1025" />
+                <ColumnReference Column="Union1026" />
+                <ColumnReference Column="Union1027" />
+                <ColumnReference Column="Union1028" />
+                <ColumnReference Column="Union1029" />
+                <ColumnReference Column="Union1030" />
+                <ColumnReference Column="Union1031" />
+                <ColumnReference Column="Union1032" />
+                <ColumnReference Column="Union1033" />
+                <ColumnReference Column="Union1034" />
+                <ColumnReference Column="Union1035" />
+                <ColumnReference Column="Union1036" />
+                <ColumnReference Column="Union1037" />
+                <ColumnReference Column="Union1038" />
+                <ColumnReference Column="Union1039" />
+                <ColumnReference Column="Union1040" />
+                <ColumnReference Column="Union1041" />
+                <ColumnReference Column="Union1042" />
+                <ColumnReference Column="Union1043" />
+                <ColumnReference Column="Union1044" />
+                <ColumnReference Column="Union1045" />
+                <ColumnReference Column="Union1046" />
+                <ColumnReference Column="Union1047" />
+              </OutputList>
+              <Concat>
+                <DefinedValues>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1016" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="CLT97ROWID" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="CLT97ROWID" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="CLT97ROWID" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="CLT97ROWID" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1017" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="N_PARTN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="N_PARTN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="N_PARTN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="N_PARTN" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1018" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="D_PROC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="D_PROC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="D_PROC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="D_PROC" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1019" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_ALLCLM" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_ALLCLM" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_ALLCLM" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_ALLCLM" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1020" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_NM_ADR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_NM_ADR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_NM_ADR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_NM_ADR" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1021" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_SUBM_REC_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_SUBM_REC_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_SUBM_REC_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_SUBM_REC_TYP" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1022" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_ALLCLM_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_ALLCLM_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_ALLCLM_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_ALLCLM_MTCH" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1023" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_NM_ADR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_NM_ADR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_NM_ADR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_NM_ADR_MTCH" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1024" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_MTCH_RSN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_MTCH_RSN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_MTCH_RSN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_MTCH_RSN" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1025" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_CUST" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_CUST" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_CUST" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_CUST" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1026" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_REGOFF" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_REGOFF" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_REGOFF" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_REGOFF" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1027" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_CUST_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_CUST_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_CUST_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_CUST_ADJ" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1028" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_REGOFF_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_REGOFF_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_REGOFF_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_REGOFF_ADJ" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1029" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_CUST_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_CUST_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_CUST_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_CUST_MTCH" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1030" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_REGOFF_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_REGOFF_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_REGOFF_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_REGOFF_MTCH" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1031" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_CUST_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_CUST_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_CUST_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_CUST_ADJ_MTCH" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1032" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_REGOFF_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_REGOFF_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_REGOFF_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_REGOFF_ADJ_MTCH" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1033" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_AUTO_UPDT" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_AUTO_UPDT" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_AUTO_UPDT" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_AUTO_UPDT" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1034" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_SYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_SYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_SYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_SYS" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1035" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_SRCH_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_SRCH_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_SRCH_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_SRCH_TYP" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1036" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_SIX_MO" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_SIX_MO" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_SIX_MO" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_SIX_MO" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1037" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_FNOL" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_FNOL" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_FNOL" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_FNOL" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1038" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_SYS_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_SYS_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_SYS_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_SYS_MTCH" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1039" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_CVG_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_CVG_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_CVG_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_CVG_TYP_MTCH" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1040" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_LOSS_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_LOSS_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_LOSS_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_LOSS_TYP_MTCH" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1041" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="N_DAYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="N_DAYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="N_DAYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="N_DAYS" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1042" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="N_FNOL_SC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="N_FNOL_SC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="N_FNOL_SC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="N_FNOL_SC" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1043" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_CLM_DIR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_CLM_DIR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_CLM_DIR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_CLM_DIR" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1044" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_CLM_DIR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_CLM_DIR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_CLM_DIR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_CLM_DIR_MTCH" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1045" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_HLTHCR_AUTO_UP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_HLTHCR_AUTO_UP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_HLTHCR_AUTO_UP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_HLTHCR_AUTO_UP" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1046" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="X" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="X" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="X" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="X" />
+                  </DefinedValue>
+                  <DefinedValue>
+                    <ColumnReference Column="Union1047" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="Date_Insert" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="Date_Insert" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="Date_Insert" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="Date_Insert" />
+                  </DefinedValue>
+                </DefinedValues>
+                <RelOp AvgRowSize="149" EstimateCPU="1103.22" EstimateIO="8831.17" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="1002930000" LogicalOp="Table Scan" NodeId="1" Parallel="false" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="9934.39" TableCardinality="1002930000">
+                  <OutputList>
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="CLT97ROWID" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="N_PARTN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="D_PROC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_ALLCLM" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_NM_ADR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_SUBM_REC_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_ALLCLM_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_NM_ADR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_MTCH_RSN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_CUST" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_REGOFF" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_CUST_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_REGOFF_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_CUST_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_REGOFF_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_CUST_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_REGOFF_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_AUTO_UPDT" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_SYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_SRCH_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_SIX_MO" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_FNOL" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_SYS_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_CVG_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_LOSS_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="N_DAYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="N_FNOL_SC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_CLM_DIR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_CLM_DIR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_HLTHCR_AUTO_UP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="X" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="Date_Insert" />
+                  </OutputList>
+                  <TableScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false">
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="CLT97ROWID" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="N_PARTN" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="D_PROC" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_ALLCLM" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_NM_ADR" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_SUBM_REC_TYP" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_ALLCLM_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_NM_ADR_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_MTCH_RSN" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_CUST" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_REGOFF" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_CUST_ADJ" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_REGOFF_ADJ" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_CUST_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_REGOFF_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_CUST_ADJ_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="I_REGOFF_ADJ_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_AUTO_UPDT" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_SYS" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_SRCH_TYP" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_SIX_MO" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_FNOL" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_SYS_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_CVG_TYP_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="C_LOSS_TYP_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="N_DAYS" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="N_FNOL_SC" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_CLM_DIR" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_CLM_DIR_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="F_HLTHCR_AUTO_UP" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="X" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" Column="Date_Insert" />
+                      </DefinedValue>
+                    </DefinedValues>
+                    <Object Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2016]" IndexKind="Heap" />
+                  </TableScan>
+                </RelOp>
+                <RelOp AvgRowSize="149" EstimateCPU="2373.53" EstimateIO="26066.6" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2157760000" LogicalOp="Table Scan" NodeId="2" Parallel="false" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="28440.1" TableCardinality="2157760000">
+                  <OutputList>
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="CLT97ROWID" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="N_PARTN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="D_PROC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_ALLCLM" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_NM_ADR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_SUBM_REC_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_ALLCLM_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_NM_ADR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_MTCH_RSN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_CUST" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_REGOFF" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_CUST_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_REGOFF_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_CUST_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_REGOFF_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_CUST_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_REGOFF_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_AUTO_UPDT" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_SYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_SRCH_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_SIX_MO" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_FNOL" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_SYS_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_CVG_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_LOSS_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="N_DAYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="N_FNOL_SC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_CLM_DIR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_CLM_DIR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_HLTHCR_AUTO_UP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="X" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="Date_Insert" />
+                  </OutputList>
+                  <TableScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false">
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="CLT97ROWID" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="N_PARTN" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="D_PROC" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_ALLCLM" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_NM_ADR" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_SUBM_REC_TYP" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_ALLCLM_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_NM_ADR_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_MTCH_RSN" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_CUST" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_REGOFF" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_CUST_ADJ" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_REGOFF_ADJ" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_CUST_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_REGOFF_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_CUST_ADJ_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="I_REGOFF_ADJ_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_AUTO_UPDT" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_SYS" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_SRCH_TYP" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_SIX_MO" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_FNOL" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_SYS_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_CVG_TYP_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="C_LOSS_TYP_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="N_DAYS" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="N_FNOL_SC" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_CLM_DIR" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_CLM_DIR_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="F_HLTHCR_AUTO_UP" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="X" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" Column="Date_Insert" />
+                      </DefinedValue>
+                    </DefinedValues>
+                    <Object Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2017]" IndexKind="Heap" />
+                  </TableScan>
+                </RelOp>
+                <RelOp AvgRowSize="149" EstimateCPU="3073.62" EstimateIO="33772.8" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2794200000" LogicalOp="Table Scan" NodeId="3" Parallel="false" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="36846.5" TableCardinality="2794200000">
+                  <OutputList>
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="CLT97ROWID" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="N_PARTN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="D_PROC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_ALLCLM" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_NM_ADR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_SUBM_REC_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_ALLCLM_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_NM_ADR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_MTCH_RSN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_CUST" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_REGOFF" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_CUST_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_REGOFF_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_CUST_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_REGOFF_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_CUST_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_REGOFF_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_AUTO_UPDT" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_SYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_SRCH_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_SIX_MO" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_FNOL" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_SYS_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_CVG_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_LOSS_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="N_DAYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="N_FNOL_SC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_CLM_DIR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_CLM_DIR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_HLTHCR_AUTO_UP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="X" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="Date_Insert" />
+                  </OutputList>
+                  <TableScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false">
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="CLT97ROWID" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="N_PARTN" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="D_PROC" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_ALLCLM" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_NM_ADR" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_SUBM_REC_TYP" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_ALLCLM_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_NM_ADR_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_MTCH_RSN" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_CUST" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_REGOFF" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_CUST_ADJ" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_REGOFF_ADJ" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_CUST_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_REGOFF_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_CUST_ADJ_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="I_REGOFF_ADJ_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_AUTO_UPDT" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_SYS" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_SRCH_TYP" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_SIX_MO" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_FNOL" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_SYS_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_CVG_TYP_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="C_LOSS_TYP_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="N_DAYS" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="N_FNOL_SC" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_CLM_DIR" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_CLM_DIR_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="F_HLTHCR_AUTO_UP" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="X" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" Column="Date_Insert" />
+                      </DefinedValue>
+                    </DefinedValues>
+                    <Object Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2018]" IndexKind="Heap" />
+                  </TableScan>
+                </RelOp>
+                <RelOp AvgRowSize="149" EstimateCPU="1125.66" EstimateIO="12364.9" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="1023330000" LogicalOp="Table Scan" NodeId="4" Parallel="false" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="13490.6" TableCardinality="1023330000">
+                  <OutputList>
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="CLT97ROWID" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="N_PARTN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="D_PROC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_ALLCLM" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_NM_ADR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_SUBM_REC_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_ALLCLM_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_NM_ADR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_MTCH_RSN" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_CUST" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_REGOFF" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_CUST_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_REGOFF_ADJ" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_CUST_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_REGOFF_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_CUST_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_REGOFF_ADJ_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_AUTO_UPDT" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_SYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_SRCH_TYP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_SIX_MO" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_FNOL" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_SYS_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_CVG_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_LOSS_TYP_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="N_DAYS" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="N_FNOL_SC" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_CLM_DIR" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_CLM_DIR_MTCH" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_HLTHCR_AUTO_UP" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="X" />
+                    <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="Date_Insert" />
+                  </OutputList>
+                  <TableScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false">
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="CLT97ROWID" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="N_PARTN" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="D_PROC" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_ALLCLM" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_NM_ADR" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_SUBM_REC_TYP" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_ALLCLM_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_NM_ADR_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_MTCH_RSN" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_CUST" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_REGOFF" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_CUST_ADJ" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_REGOFF_ADJ" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_CUST_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_REGOFF_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_CUST_ADJ_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="I_REGOFF_ADJ_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_AUTO_UPDT" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_SYS" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_SRCH_TYP" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_SIX_MO" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_FNOL" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_SYS_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_CVG_TYP_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="C_LOSS_TYP_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="N_DAYS" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="N_FNOL_SC" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_CLM_DIR" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_CLM_DIR_MTCH" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="F_HLTHCR_AUTO_UP" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="X" />
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" Column="Date_Insert" />
+                      </DefinedValue>
+                    </DefinedValues>
+                    <Object Database="[ClaimSearch]" Schema="[CS]" Table="[Raw_CLT00097_2019]" IndexKind="Heap" />
+                  </TableScan>
+                </RelOp>
+              </Concat>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

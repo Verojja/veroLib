@@ -1,0 +1,1 @@
+ALTER TABLE iso21.criminal_records_charges ALTER COLUMN disposition TYPE character varying(255);

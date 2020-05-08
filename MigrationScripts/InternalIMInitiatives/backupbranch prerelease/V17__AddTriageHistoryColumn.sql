@@ -1,0 +1,1 @@
+alter table iso21.triagehistorylog add column cdp_ind char(1) default 'N';

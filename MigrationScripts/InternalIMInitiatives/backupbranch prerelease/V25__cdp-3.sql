@@ -1,0 +1,1 @@
+UPDATE iso21.criminal_records_person set recordtype ='C' where dproc='2020-02-04 09:59:52.094657' and personid='DEMOSXPAADAMBCJCFCHB';

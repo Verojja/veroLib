@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1" Build="10.50.6560.0" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementId="1" StatementText="BEGIN TRANSACTION&#xD;" StatementType="BEGIN TRANSACTION" />
+      </Statements>
+      <Statements>
+        <StmtSimple StatementCompId="2" StatementEstRows="453083000" StatementId="2" StatementOptmLevel="FULL" StatementSubTreeCost="18932.7" StatementText="&#xA;SELECT&#xD;&#xA;	CLT0001A.I_ALLCLM&#xD;&#xA;FROM&#xD;&#xA;	dbo.CLT0001A&#xD;&#xA;	INNER JOIN .dbo.CLT00014&#xD;&#xA;		ON CLT0001A.I_ALLCLM = CLT00014.I_ALLCLM&#xD;&#xA;-- to be replaced with current day extraction when running daily   &#xD;&#xA;WHERE&#xD;&#xA;	CLT0001A.D_RCV BETWEEN '2008-01-01-00.00.00.000000'&#xD;&#xA;                   AND '2019-01-31-23.59.59.999999'&#xD;&#xA;	AND&#xD;&#xA;	(&#xD;&#xA;		(&#xD;&#xA;			CLT0001A.C_CLM_SRCE = 'P'&#xD;&#xA;			AND CLT0001A.C_LOSS_TYP = 'FIRE'&#xD;&#xA;		)&#xD;&#xA;		OR&#xD;&#xA;		(&#xD;&#xA;			CLT0001A.C_CLM_SRCE = 'U'&#xD;&#xA;			AND CLT00014.C_LOSS_TYP  IN&#xD;&#xA;			(&#xD;&#xA;				'FIRE',&#xD;&#xA;				'LGHT',&#xD;&#xA;				'EXPL'&#xD;&#xA;			)&#xD;&#xA;		)&#xD;&#xA;	)&#xD;&#xA;&#xD;" StatementType="SELECT" QueryHash="0x4014A8159E378E24" QueryPlanHash="0x14D827074E95AF96">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan CachedPlanSize="48" CompileTime="94" CompileCPU="19" CompileMemory="552">
+            <MissingIndexes>
+              <MissingIndexGroup Impact="54.3693">
+                <MissingIndex Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]">
+                  <ColumnGroup Usage="INEQUALITY">
+                    <Column Name="[D_RCV]" ColumnId="23" />
+                  </ColumnGroup>
+                  <ColumnGroup Usage="INCLUDE">
+                    <Column Name="[I_ALLCLM]" ColumnId="2" />
+                    <Column Name="[C_LOSS_TYP]" ColumnId="10" />
+                    <Column Name="[C_CLM_SRCE]" ColumnId="15" />
+                  </ColumnGroup>
+                </MissingIndex>
+              </MissingIndexGroup>
+            </MissingIndexes>
+            <RelOp AvgRowSize="22" EstimateCPU="37.3016" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="453083000" LogicalOp="Gather Streams" NodeId="0" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="18932.7">
+              <OutputList>
+                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+              </OutputList>
+              <Parallelism>
+                <RelOp AvgRowSize="22" EstimateCPU="932.692" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="453083000" LogicalOp="Inner Join" NodeId="1" Parallel="true" PhysicalOp="Hash Match" EstimatedTotalSubtreeCost="18895.4">
+                  <OutputList>
+                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                  </OutputList>
+                  <MemoryFractions Input="1" Output="1" />
+                  <Hash>
+                    <DefinedValues />
+                    <HashKeysBuild>
+                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                    </HashKeysBuild>
+                    <HashKeysProbe>
+                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" Column="I_ALLCLM" />
+                    </HashKeysProbe>
+                    <ProbeResidual>
+                      <ScalarOperator ScalarString="[ClaimSearch_Prod].[dbo].[CLT00014].[I_ALLCLM]=[ClaimSearch_Prod].[dbo].[CLT0001A].[I_ALLCLM] AND ([ClaimSearch_Prod].[dbo].[CLT0001A].[C_CLM_SRCE]='P' AND [ClaimSearch_Prod].[dbo].[CLT0001A].[C_LOSS_TYP]='FIRE' OR [ClaimSearch_Prod].[dbo].[CLT0001A].[C_CLM_SRCE]='U' AND ([ClaimSearch_Prod].[dbo].[CLT00014].[C_LOSS_TYP]='EXPL' OR [ClaimSearch_Prod].[dbo].[CLT00014].[C_LOSS_TYP]='FIRE' OR [ClaimSearch_Prod].[dbo].[CLT00014].[C_LOSS_TYP]='LGHT'))">
+                        <Logical Operation="AND">
+                          <ScalarOperator>
+                            <Compare CompareOp="EQ">
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" Column="I_ALLCLM" />
+                                </Identifier>
+                              </ScalarOperator>
+                              <ScalarOperator>
+                                <Identifier>
+                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                </Identifier>
+                              </ScalarOperator>
+                            </Compare>
+                          </ScalarOperator>
+                          <ScalarOperator>
+                            <Logical Operation="OR">
+                              <ScalarOperator>
+                                <Logical Operation="AND">
+                                  <ScalarOperator>
+                                    <Compare CompareOp="EQ">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CLM_SRCE" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Const ConstValue="'P'" />
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                  <ScalarOperator>
+                                    <Compare CompareOp="EQ">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_LOSS_TYP" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Const ConstValue="'FIRE'" />
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                </Logical>
+                              </ScalarOperator>
+                              <ScalarOperator>
+                                <Logical Operation="AND">
+                                  <ScalarOperator>
+                                    <Compare CompareOp="EQ">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CLM_SRCE" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Const ConstValue="'U'" />
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                  <ScalarOperator>
+                                    <Logical Operation="OR">
+                                      <ScalarOperator>
+                                        <Compare CompareOp="EQ">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" Column="C_LOSS_TYP" />
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Const ConstValue="'EXPL'" />
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Compare CompareOp="EQ">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" Column="C_LOSS_TYP" />
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Const ConstValue="'FIRE'" />
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Compare CompareOp="EQ">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" Column="C_LOSS_TYP" />
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Const ConstValue="'LGHT'" />
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                    </Logical>
+                                  </ScalarOperator>
+                                </Logical>
+                              </ScalarOperator>
+                            </Logical>
+                          </ScalarOperator>
+                        </Logical>
+                      </ScalarOperator>
+                    </ProbeResidual>
+                    <RelOp AvgRowSize="29" EstimateCPU="72.0794" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="482601000" LogicalOp="Bitmap Create" NodeId="2" Parallel="true" PhysicalOp="Bitmap" EstimatedTotalSubtreeCost="11529.8">
+                      <OutputList>
+                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_LOSS_TYP" />
+                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CLM_SRCE" />
+                      </OutputList>
+                      <Bitmap>
+                        <DefinedValues>
+                          <DefinedValue>
+                            <ColumnReference Column="Bitmap1009" />
+                          </DefinedValue>
+                        </DefinedValues>
+                        <HashKeys>
+                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                        </HashKeys>
+                        <RelOp AvgRowSize="29" EstimateCPU="72.0794" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="482601000" LogicalOp="Repartition Streams" NodeId="3" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="11529.8">
+                          <OutputList>
+                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_LOSS_TYP" />
+                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CLM_SRCE" />
+                          </OutputList>
+                          <Parallelism PartitioningType="Hash">
+                            <PartitionColumns>
+                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                            </PartitionColumns>
+                            <RelOp AvgRowSize="57" EstimateCPU="19.4114" EstimateIO="11403.4" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="482601000" LogicalOp="Table Scan" NodeId="4" Parallel="true" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="11422.8" TableCardinality="564695000">
+                              <OutputList>
+                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_LOSS_TYP" />
+                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CLM_SRCE" />
+                              </OutputList>
+                              <TableScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false">
+                                <DefinedValues>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="I_ALLCLM" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_LOSS_TYP" />
+                                  </DefinedValue>
+                                  <DefinedValue>
+                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CLM_SRCE" />
+                                  </DefinedValue>
+                                </DefinedValues>
+                                <Object Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" IndexKind="Heap" />
+                                <Predicate>
+                                  <ScalarOperator ScalarString="[ClaimSearch_Prod].[dbo].[CLT0001A].[D_RCV]&gt;='2008-01-01-00.00.00.000000' AND [ClaimSearch_Prod].[dbo].[CLT0001A].[D_RCV]&lt;='2019-01-31-23.59.59.999999' AND ([ClaimSearch_Prod].[dbo].[CLT0001A].[C_CLM_SRCE]='P' AND [ClaimSearch_Prod].[dbo].[CLT0001A].[C_LOSS_TYP]='FIRE' OR [ClaimSearch_Prod].[dbo].[CLT0001A].[C_CLM_SRCE]='U')">
+                                    <Logical Operation="AND">
+                                      <ScalarOperator>
+                                        <Compare CompareOp="GE">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_RCV" />
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Const ConstValue="'2008-01-01-00.00.00.000000'" />
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Compare CompareOp="LE">
+                                          <ScalarOperator>
+                                            <Identifier>
+                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="D_RCV" />
+                                            </Identifier>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Const ConstValue="'2019-01-31-23.59.59.999999'" />
+                                          </ScalarOperator>
+                                        </Compare>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Logical Operation="OR">
+                                          <ScalarOperator>
+                                            <Logical Operation="AND">
+                                              <ScalarOperator>
+                                                <Compare CompareOp="EQ">
+                                                  <ScalarOperator>
+                                                    <Identifier>
+                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CLM_SRCE" />
+                                                    </Identifier>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="'P'" />
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                              <ScalarOperator>
+                                                <Compare CompareOp="EQ">
+                                                  <ScalarOperator>
+                                                    <Identifier>
+                                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_LOSS_TYP" />
+                                                    </Identifier>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="'FIRE'" />
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                            </Logical>
+                                          </ScalarOperator>
+                                          <ScalarOperator>
+                                            <Compare CompareOp="EQ">
+                                              <ScalarOperator>
+                                                <Identifier>
+                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT0001A]" Column="C_CLM_SRCE" />
+                                                </Identifier>
+                                              </ScalarOperator>
+                                              <ScalarOperator>
+                                                <Const ConstValue="'U'" />
+                                              </ScalarOperator>
+                                            </Compare>
+                                          </ScalarOperator>
+                                        </Logical>
+                                      </ScalarOperator>
+                                    </Logical>
+                                  </ScalarOperator>
+                                </Predicate>
+                              </TableScan>
+                            </RelOp>
+                          </Parallelism>
+                        </RelOp>
+                      </Bitmap>
+                    </RelOp>
+                    <RelOp AvgRowSize="27" EstimateCPU="92.7546" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="713879000" LogicalOp="Repartition Streams" NodeId="5" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="6432.83">
+                      <OutputList>
+                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" Column="I_ALLCLM" />
+                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" Column="C_LOSS_TYP" />
+                      </OutputList>
+                      <Parallelism PartitioningType="Hash">
+                        <PartitionColumns>
+                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" Column="I_ALLCLM" />
+                        </PartitionColumns>
+                        <RelOp AvgRowSize="27" EstimateCPU="24.5396" EstimateIO="6315.54" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="713879000" LogicalOp="Table Scan" NodeId="6" Parallel="true" PhysicalOp="Table Scan" EstimatedTotalSubtreeCost="6340.08" TableCardinality="713879000">
+                          <OutputList>
+                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" Column="I_ALLCLM" />
+                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" Column="C_LOSS_TYP" />
+                          </OutputList>
+                          <TableScan Ordered="false" ForcedIndex="false" ForceScan="false" NoExpandHint="false">
+                            <DefinedValues>
+                              <DefinedValue>
+                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" Column="I_ALLCLM" />
+                              </DefinedValue>
+                              <DefinedValue>
+                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" Column="C_LOSS_TYP" />
+                              </DefinedValue>
+                            </DefinedValues>
+                            <Object Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" IndexKind="Heap" />
+                            <Predicate>
+                              <ScalarOperator ScalarString="PROBE([Bitmap1009],[ClaimSearch_Prod].[dbo].[CLT00014].[I_ALLCLM])">
+                                <Intrinsic FunctionName="PROBE">
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Column="Bitmap1009" />
+                                    </Identifier>
+                                  </ScalarOperator>
+                                  <ScalarOperator>
+                                    <Identifier>
+                                      <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00014]" Column="I_ALLCLM" />
+                                    </Identifier>
+                                  </ScalarOperator>
+                                </Intrinsic>
+                              </ScalarOperator>
+                            </Predicate>
+                          </TableScan>
+                        </RelOp>
+                      </Parallelism>
+                    </RelOp>
+                  </Hash>
+                </RelOp>
+              </Parallelism>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+      <Statements>
+        <StmtSimple StatementCompId="3" StatementId="3" StatementText="&#xA;ROLLBACK TRANSACTION" StatementType="ROLLBACK TRANSACTION" />
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

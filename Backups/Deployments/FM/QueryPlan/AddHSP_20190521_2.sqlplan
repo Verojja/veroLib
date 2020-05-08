@@ -1,0 +1,1074 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ShowPlanXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.1" Build="10.50.6560.0" xmlns="http://schemas.microsoft.com/sqlserver/2004/07/showplan">
+  <BatchSequence>
+    <Batch>
+      <Statements>
+        <StmtSimple StatementCompId="1" StatementId="1" StatementText="&#xD;&#xA;		DECLARE @dateFilterParam DATE = '20140101';&#xD;&#xA;	" StatementType="ASSIGN" />
+      </Statements>
+      <Statements>
+        <StmtSimple StatementCompId="2" StatementId="2" StatementText="	DECLARE @dateFilterInt INT = CAST( &#xD;&#xA;										REPLACE(&#xD;&#xA;											CAST(&#xD;&#xA;												@dateFilterParam&#xD;&#xA;												AS VARCHAR(10)&#xD;&#xA;											),&#xD;&#xA;										'-','')&#xD;&#xA;									AS INT);&#xD;&#xA;		" StatementType="ASSIGN" />
+      </Statements>
+      <Statements>
+        <StmtSimple StatementCompId="3" StatementEstRows="58893.5" StatementId="3" StatementOptmLevel="FULL" StatementSubTreeCost="13109.7" StatementText="	SELECT&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.addressId,&#xD;&#xA;				CAST(0 AS BIT) AS isLocationOfLoss,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.originalAddressLine1,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.originalAddressLine2,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.originalCityName,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.originalStateCode,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.originalZipCode,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.scrubbedAddressLine1,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.scrubbedAddressLine2,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.scrubbedCityName,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.scrubbedStateCode,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.scrubbedZipCode,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.scrubbedZipCodeExtended,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.scrubbedCountyName,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.scrubbedCountyFIPS,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.scrubbedCountryCode,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.latitude,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.longitude,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.geoAccuracy,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.melissaMappingKey,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.isoClaimId,&#xD;&#xA;				DuplicateDataSetPerformanceHackMelissaNameMap.involvedPartySequenceId&#xD;&#xA;				INTO #NonLocationOfLossData&#xD;&#xA;			FROM&#xD;&#xA;				(&#xD;&#xA;					SELECT&#xD;&#xA;						ExistingAddress.addressId,&#xD;&#xA;						CAST(LTRIM(RTRIM(CLT00004.I_ALLCLM)) AS VARCHAR(11)) AS isoClaimId,&#xD;&#xA;						CAST(CLT00004.I_NM_ADR AS INT) AS involvedPartySequenceId,&#xD;&#xA;						ROW_NUMBER() OVER(&#xD;&#xA;							PARTITION BY&#xD;&#xA;								CLT00004.I_ALLCLM,&#xD;&#xA;								CLT00004.I_NM_ADR&#xD;&#xA;							ORDER BY&#xD;&#xA;								CLT00004.Date_Insert DESC&#xD;&#xA;								/*CS_Lookup_EntityIDs.[YEAR] DESC*/&#xD;&#xA;						) AS uniqueInstanceValue,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(CLT00004.T_ADR_LN1)),'') AS VARCHAR(50))AS originalAddressLine1,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(CLT00004.T_ADR_LN2)),'') AS VARCHAR(50))AS originalAddressLine2,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(CLT00004.M_CITY)),'') AS VARCHAR(25))AS originalCityName,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(CLT00004.C_ST_ALPH)),'') AS CHAR(2))AS originalStateCode,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(CLT00004.C_ZIP)),'') AS VARCHAR(9))AS originalZipCode,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(NULL)),'') AS VARCHAR(50))AS scrubbedAddressLine1,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(NULL)),'') AS VARCHAR(50))AS scrubbedAddressLine2,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(NULL)),'') AS VARCHAR(25))AS scrubbedCityName,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(NULL)),'') AS CHAR(2))AS scrubbedStateCode,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(NULL)),'') AS CHAR(5))AS scrubbedZipCode,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(NULL)),'') AS CHAR(4))AS scrubbedZipCodeExtended,&#xD;&#xA;						CAST(&#xD;&#xA;							COALESCE&#xD;&#xA;							(&#xD;&#xA;								NULLIF(LTRIM(RTRIM(NULL)),''),&#xD;&#xA;								NULLIF(LTRIM(RTRIM(NULL)),'')&#xD;&#xA;							) AS VARCHAR(25)&#xD;&#xA;						) AS scrubbedCountyName,&#xD;&#xA;						CAST(&#xD;&#xA;							COALESCE&#xD;&#xA;							(&#xD;&#xA;								NULLIF(LTRIM(RTRIM(NULL)),''),&#xD;&#xA;								NULLIF(LTRIM(RTRIM(NULL)),'')&#xD;&#xA;							) AS VARCHAR(25)&#xD;&#xA;						) AS scrubbedCountyFIPS,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(NULL)),'') AS VARCHAR(3))AS scrubbedCountryCode,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(NULL)),'') AS VARCHAR(15))AS latitude,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(NULL)),'') AS VARCHAR(15))AS longitude,&#xD;&#xA;						CAST(NULLIF(LTRIM(RTRIM(NULL)),'') AS VARCHAR(15))AS geoAccuracy,&#xD;&#xA;						CAST(NULL AS BIGINT) AS melissaMappingKey&#xD;&#xA;					FROM&#xD;&#xA;						dbo.FireMarshalDriver WITH (NOLOCK)&#xD;&#xA;						INNER JOIN ClaimSearch_Prod.dbo.CLT00004 WITH (NOLOCK)&#xD;&#xA;							ON FireMarshalDriver.isoClaimId = CLT00004.I_ALLCLM&#xD;&#xA;						LEFT OUTER JOIN dbo.Address AS ExistingAddress WITH (NOLOCK)&#xD;&#xA;							ON CLT00004.I_ALLCLM  = ExistingAddress.isoClaimId&#xD;&#xA;								AND CLT00004.I_NM_ADR = ExistingAddress.involvedPartySequenceId&#xD;&#xA;						--LEFT OUTER JOIN [Clai" StatementType="SELECT INTO" QueryHash="0x38A2B60A9D6EDDF0" QueryPlanHash="0x5234201D0C7EC112">
+          <StatementSetOptions ANSI_NULLS="true" ANSI_PADDING="true" ANSI_WARNINGS="true" ARITHABORT="true" CONCAT_NULL_YIELDS_NULL="true" NUMERIC_ROUNDABORT="false" QUOTED_IDENTIFIER="true" />
+          <QueryPlan CachedPlanSize="176" CompileTime="89" CompileCPU="89" CompileMemory="1400">
+            <RelOp AvgRowSize="9" EstimateCPU="0.0588935" EstimateIO="12.2442" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="58893.5" LogicalOp="Insert" NodeId="0" Parallel="false" PhysicalOp="Table Insert" EstimatedTotalSubtreeCost="13109.7">
+              <OutputList />
+              <Update DMLRequestSort="false">
+                <Object Table="[#NonLocationOfLossData]" />
+                <SetPredicate>
+                  <ScalarOperator ScalarString="[#NonLocationOfLossData].[addressId] = [ClaimSearch_Prod].[dbo].[Address].[addressId] as [ExistingAddress].[addressId],[#NonLocationOfLossData].[isLocationOfLoss] = [Expr1032],[#NonLocationOfLossData].[originalAddressLine1] = [Expr1014],[#NonLocationOfLossData].[originalAddressLine2] = [Expr1015],[#NonLocationOfLossData].[originalCityName] = [Expr1016],[#NonLocationOfLossData].[originalStateCode] = [Expr1017],[#NonLocationOfLossData].[originalZipCode] = [Expr1018],[#NonLocationOfLossData].[scrubbedAddressLine1] = [Expr1019],[#NonLocationOfLossData].[scrubbedAddressLine2] = [Expr1020],[#NonLocationOfLossData].[scrubbedCityName] = [Expr1021],[#NonLocationOfLossData].[scrubbedStateCode] = [Expr1022],[#NonLocationOfLossData].[scrubbedZipCode] = [Expr1023],[#NonLocationOfLossData].[scrubbedZipCodeExtended] = [Expr1024],[#NonLocationOfLossData].[scrubbedCountyName] = [Expr1025],[#NonLocationOfLossData].[scrubbedCountyFIPS] = [Expr1026],[#NonLocationOfLossData].[scrubbedCountryCode] = [Expr1027],[#NonLocationOfLossData].[latitude] = [Expr1028],[#NonLocationOfLossData].[longitude] = [Expr1029],[#NonLocationOfLossData].[geoAccuracy] = [Expr1030],[#NonLocationOfLossData].[melissaMappingKey] = [Expr1031],[#NonLocationOfLossData].[isoClaimId] = [Expr1013],[#NonLocationOfLossData].[involvedPartySequenceId] = [ClaimSearch_Prod].[dbo].[CLT00004].[I_NM_ADR]">
+                    <ScalarExpressionList>
+                      <ScalarOperator>
+                        <MultipleAssign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="addressId" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="isLocationOfLoss" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1032" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="originalAddressLine1" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1014" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="originalAddressLine2" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1015" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="originalCityName" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1016" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="originalStateCode" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1017" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="originalZipCode" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1018" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="scrubbedAddressLine1" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1019" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="scrubbedAddressLine2" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1020" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="scrubbedCityName" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1021" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="scrubbedStateCode" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1022" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="scrubbedZipCode" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1023" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="scrubbedZipCodeExtended" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1024" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="scrubbedCountyName" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1025" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="scrubbedCountyFIPS" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1026" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="scrubbedCountryCode" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1027" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="latitude" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1028" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="longitude" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1029" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="geoAccuracy" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1030" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="melissaMappingKey" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1031" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="isoClaimId" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Column="Expr1013" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                          <Assign>
+                            <ColumnReference Table="[#NonLocationOfLossData]" Column="involvedPartySequenceId" />
+                            <ScalarOperator>
+                              <Identifier>
+                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                              </Identifier>
+                            </ScalarOperator>
+                          </Assign>
+                        </MultipleAssign>
+                      </ScalarOperator>
+                    </ScalarExpressionList>
+                  </ScalarOperator>
+                </SetPredicate>
+                <RelOp AvgRowSize="252" EstimateCPU="0.00588935" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="58893.5" LogicalOp="Compute Scalar" NodeId="1" Parallel="false" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="13097.4">
+                  <OutputList>
+                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                    <ColumnReference Column="Expr1013" />
+                    <ColumnReference Column="Expr1014" />
+                    <ColumnReference Column="Expr1015" />
+                    <ColumnReference Column="Expr1016" />
+                    <ColumnReference Column="Expr1017" />
+                    <ColumnReference Column="Expr1018" />
+                    <ColumnReference Column="Expr1019" />
+                    <ColumnReference Column="Expr1020" />
+                    <ColumnReference Column="Expr1021" />
+                    <ColumnReference Column="Expr1022" />
+                    <ColumnReference Column="Expr1023" />
+                    <ColumnReference Column="Expr1024" />
+                    <ColumnReference Column="Expr1025" />
+                    <ColumnReference Column="Expr1026" />
+                    <ColumnReference Column="Expr1027" />
+                    <ColumnReference Column="Expr1028" />
+                    <ColumnReference Column="Expr1029" />
+                    <ColumnReference Column="Expr1030" />
+                    <ColumnReference Column="Expr1031" />
+                    <ColumnReference Column="Expr1032" />
+                  </OutputList>
+                  <ComputeScalar>
+                    <DefinedValues>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1019" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1020" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1021" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1022" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1023" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1024" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1025" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1026" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1027" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1028" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1029" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1030" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1031" />
+                        <ScalarOperator ScalarString="NULL">
+                          <Const ConstValue="NULL" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                      <DefinedValue>
+                        <ColumnReference Column="Expr1032" />
+                        <ScalarOperator ScalarString="(0)">
+                          <Const ConstValue="(0)" />
+                        </ScalarOperator>
+                      </DefinedValue>
+                    </DefinedValues>
+                    <RelOp AvgRowSize="104" EstimateCPU="0.00588935" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="58893.5" LogicalOp="Top" NodeId="2" Parallel="false" PhysicalOp="Top" EstimatedTotalSubtreeCost="13097.4">
+                      <OutputList>
+                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                        <ColumnReference Column="Expr1013" />
+                        <ColumnReference Column="Expr1014" />
+                        <ColumnReference Column="Expr1015" />
+                        <ColumnReference Column="Expr1016" />
+                        <ColumnReference Column="Expr1017" />
+                        <ColumnReference Column="Expr1018" />
+                      </OutputList>
+                      <Top RowCount="true" IsPercent="false" WithTies="false">
+                        <TopExpression>
+                          <ScalarOperator ScalarString="(0)">
+                            <Const ConstValue="(0)" />
+                          </ScalarOperator>
+                        </TopExpression>
+                        <RelOp AvgRowSize="104" EstimateCPU="0.0499805" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="58893.5" LogicalOp="Gather Streams" NodeId="3" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="13097.4">
+                          <OutputList>
+                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                            <ColumnReference Column="Expr1013" />
+                            <ColumnReference Column="Expr1014" />
+                            <ColumnReference Column="Expr1015" />
+                            <ColumnReference Column="Expr1016" />
+                            <ColumnReference Column="Expr1017" />
+                            <ColumnReference Column="Expr1018" />
+                          </OutputList>
+                          <Parallelism>
+                            <RelOp AvgRowSize="104" EstimateCPU="0.0343701" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="58893.5" LogicalOp="Filter" NodeId="4" Parallel="true" PhysicalOp="Filter" EstimatedTotalSubtreeCost="13097.4">
+                              <OutputList>
+                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                                <ColumnReference Column="Expr1013" />
+                                <ColumnReference Column="Expr1014" />
+                                <ColumnReference Column="Expr1015" />
+                                <ColumnReference Column="Expr1016" />
+                                <ColumnReference Column="Expr1017" />
+                                <ColumnReference Column="Expr1018" />
+                              </OutputList>
+                              <Filter StartupExpression="false">
+                                <RelOp AvgRowSize="113" EstimateCPU="0.00716044" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2291340" LogicalOp="Compute Scalar" NodeId="5" Parallel="true" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="13097.3">
+                                  <OutputList>
+                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                                    <ColumnReference Column="Expr1012" />
+                                    <ColumnReference Column="Expr1013" />
+                                    <ColumnReference Column="Expr1014" />
+                                    <ColumnReference Column="Expr1015" />
+                                    <ColumnReference Column="Expr1016" />
+                                    <ColumnReference Column="Expr1017" />
+                                    <ColumnReference Column="Expr1018" />
+                                  </OutputList>
+                                  <ComputeScalar>
+                                    <DefinedValues>
+                                      <DefinedValue>
+                                        <ColumnReference Column="Expr1013" />
+                                        <ScalarOperator ScalarString="ltrim(rtrim([ClaimSearch_Prod].[dbo].[CLT00004].[I_ALLCLM]))">
+                                          <Intrinsic FunctionName="ltrim">
+                                            <ScalarOperator>
+                                              <Intrinsic FunctionName="rtrim">
+                                                <ScalarOperator>
+                                                  <Identifier>
+                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                  </Identifier>
+                                                </ScalarOperator>
+                                              </Intrinsic>
+                                            </ScalarOperator>
+                                          </Intrinsic>
+                                        </ScalarOperator>
+                                      </DefinedValue>
+                                      <DefinedValue>
+                                        <ColumnReference Column="Expr1014" />
+                                        <ScalarOperator ScalarString="CASE WHEN ltrim(rtrim([ClaimSearch_Prod].[dbo].[CLT00004].[T_ADR_LN1]))='' THEN NULL ELSE ltrim(rtrim([ClaimSearch_Prod].[dbo].[CLT00004].[T_ADR_LN1])) END">
+                                          <IF>
+                                            <Condition>
+                                              <ScalarOperator>
+                                                <Compare CompareOp="EQ">
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="ltrim">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN1" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="''" />
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                            </Condition>
+                                            <Then>
+                                              <ScalarOperator>
+                                                <Const ConstValue="NULL" />
+                                              </ScalarOperator>
+                                            </Then>
+                                            <Else>
+                                              <ScalarOperator>
+                                                <Intrinsic FunctionName="ltrim">
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="rtrim">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN1" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                </Intrinsic>
+                                              </ScalarOperator>
+                                            </Else>
+                                          </IF>
+                                        </ScalarOperator>
+                                      </DefinedValue>
+                                      <DefinedValue>
+                                        <ColumnReference Column="Expr1015" />
+                                        <ScalarOperator ScalarString="CASE WHEN ltrim(rtrim([ClaimSearch_Prod].[dbo].[CLT00004].[T_ADR_LN2]))='' THEN NULL ELSE ltrim(rtrim([ClaimSearch_Prod].[dbo].[CLT00004].[T_ADR_LN2])) END">
+                                          <IF>
+                                            <Condition>
+                                              <ScalarOperator>
+                                                <Compare CompareOp="EQ">
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="ltrim">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN2" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="''" />
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                            </Condition>
+                                            <Then>
+                                              <ScalarOperator>
+                                                <Const ConstValue="NULL" />
+                                              </ScalarOperator>
+                                            </Then>
+                                            <Else>
+                                              <ScalarOperator>
+                                                <Intrinsic FunctionName="ltrim">
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="rtrim">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN2" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                </Intrinsic>
+                                              </ScalarOperator>
+                                            </Else>
+                                          </IF>
+                                        </ScalarOperator>
+                                      </DefinedValue>
+                                      <DefinedValue>
+                                        <ColumnReference Column="Expr1016" />
+                                        <ScalarOperator ScalarString="CASE WHEN ltrim(rtrim([ClaimSearch_Prod].[dbo].[CLT00004].[M_CITY]))='' THEN NULL ELSE ltrim(rtrim([ClaimSearch_Prod].[dbo].[CLT00004].[M_CITY])) END">
+                                          <IF>
+                                            <Condition>
+                                              <ScalarOperator>
+                                                <Compare CompareOp="EQ">
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="ltrim">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="M_CITY" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="''" />
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                            </Condition>
+                                            <Then>
+                                              <ScalarOperator>
+                                                <Const ConstValue="NULL" />
+                                              </ScalarOperator>
+                                            </Then>
+                                            <Else>
+                                              <ScalarOperator>
+                                                <Intrinsic FunctionName="ltrim">
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="rtrim">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="M_CITY" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                </Intrinsic>
+                                              </ScalarOperator>
+                                            </Else>
+                                          </IF>
+                                        </ScalarOperator>
+                                      </DefinedValue>
+                                      <DefinedValue>
+                                        <ColumnReference Column="Expr1017" />
+                                        <ScalarOperator ScalarString="CONVERT(char(2),CASE WHEN ltrim(rtrim([ClaimSearch_Prod].[dbo].[CLT00004].[C_ST_ALPH]))='' THEN NULL ELSE ltrim(rtrim([ClaimSearch_Prod].[dbo].[CLT00004].[C_ST_ALPH])) END,0)">
+                                          <Convert DataType="char" Length="2" Style="0" Implicit="false">
+                                            <ScalarOperator>
+                                              <IF>
+                                                <Condition>
+                                                  <ScalarOperator>
+                                                    <Compare CompareOp="EQ">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="ltrim">
+                                                          <ScalarOperator>
+                                                            <Intrinsic FunctionName="rtrim">
+                                                              <ScalarOperator>
+                                                                <Identifier>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ST_ALPH" />
+                                                                </Identifier>
+                                                              </ScalarOperator>
+                                                            </Intrinsic>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                      <ScalarOperator>
+                                                        <Const ConstValue="''" />
+                                                      </ScalarOperator>
+                                                    </Compare>
+                                                  </ScalarOperator>
+                                                </Condition>
+                                                <Then>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="NULL" />
+                                                  </ScalarOperator>
+                                                </Then>
+                                                <Else>
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="ltrim">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ST_ALPH" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                </Else>
+                                              </IF>
+                                            </ScalarOperator>
+                                          </Convert>
+                                        </ScalarOperator>
+                                      </DefinedValue>
+                                      <DefinedValue>
+                                        <ColumnReference Column="Expr1018" />
+                                        <ScalarOperator ScalarString="CASE WHEN ltrim(rtrim([ClaimSearch_Prod].[dbo].[CLT00004].[C_ZIP]))='' THEN NULL ELSE ltrim(rtrim([ClaimSearch_Prod].[dbo].[CLT00004].[C_ZIP])) END">
+                                          <IF>
+                                            <Condition>
+                                              <ScalarOperator>
+                                                <Compare CompareOp="EQ">
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="ltrim">
+                                                      <ScalarOperator>
+                                                        <Intrinsic FunctionName="rtrim">
+                                                          <ScalarOperator>
+                                                            <Identifier>
+                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ZIP" />
+                                                            </Identifier>
+                                                          </ScalarOperator>
+                                                        </Intrinsic>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                  <ScalarOperator>
+                                                    <Const ConstValue="''" />
+                                                  </ScalarOperator>
+                                                </Compare>
+                                              </ScalarOperator>
+                                            </Condition>
+                                            <Then>
+                                              <ScalarOperator>
+                                                <Const ConstValue="NULL" />
+                                              </ScalarOperator>
+                                            </Then>
+                                            <Else>
+                                              <ScalarOperator>
+                                                <Intrinsic FunctionName="ltrim">
+                                                  <ScalarOperator>
+                                                    <Intrinsic FunctionName="rtrim">
+                                                      <ScalarOperator>
+                                                        <Identifier>
+                                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ZIP" />
+                                                        </Identifier>
+                                                      </ScalarOperator>
+                                                    </Intrinsic>
+                                                  </ScalarOperator>
+                                                </Intrinsic>
+                                              </ScalarOperator>
+                                            </Else>
+                                          </IF>
+                                        </ScalarOperator>
+                                      </DefinedValue>
+                                    </DefinedValues>
+                                    <RelOp AvgRowSize="120" EstimateCPU="30.4083" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2291340" LogicalOp="Distribute Streams" NodeId="6" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="13097.3">
+                                      <OutputList>
+                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN1" />
+                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="M_CITY" />
+                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ST_ALPH" />
+                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ZIP" />
+                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN2" />
+                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                                        <ColumnReference Column="Expr1012" />
+                                      </OutputList>
+                                      <Parallelism PartitioningType="RoundRobin">
+                                        <RelOp AvgRowSize="120" EstimateCPU="0.183307" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2291340" LogicalOp="Compute Scalar" NodeId="7" Parallel="false" PhysicalOp="Sequence Project" EstimatedTotalSubtreeCost="13066.9">
+                                          <OutputList>
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN1" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="M_CITY" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ST_ALPH" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ZIP" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN2" />
+                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                                            <ColumnReference Column="Expr1012" />
+                                          </OutputList>
+                                          <SequenceProject>
+                                            <DefinedValues>
+                                              <DefinedValue>
+                                                <ColumnReference Column="Expr1012" />
+                                                <ScalarOperator ScalarString="row_number">
+                                                  <Sequence FunctionName="row_number" />
+                                                </ScalarOperator>
+                                              </DefinedValue>
+                                            </DefinedValues>
+                                            <RelOp AvgRowSize="120" EstimateCPU="0.0458268" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2291340" LogicalOp="Segment" NodeId="8" Parallel="false" PhysicalOp="Segment" EstimatedTotalSubtreeCost="13066.7">
+                                              <OutputList>
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN1" />
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="M_CITY" />
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ST_ALPH" />
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ZIP" />
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN2" />
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="Date_Insert" />
+                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                                                <ColumnReference Column="Segment1047" />
+                                              </OutputList>
+                                              <Segment>
+                                                <GroupBy>
+                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                </GroupBy>
+                                                <SegmentColumn>
+                                                  <ColumnReference Column="Segment1047" />
+                                                </SegmentColumn>
+                                                <RelOp AvgRowSize="129" EstimateCPU="4.57291" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2291340" LogicalOp="Gather Streams" NodeId="9" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="13066.7">
+                                                  <OutputList>
+                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN1" />
+                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="M_CITY" />
+                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ST_ALPH" />
+                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ZIP" />
+                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN2" />
+                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="Date_Insert" />
+                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                                                  </OutputList>
+                                                  <Parallelism>
+                                                    <OrderBy>
+                                                      <OrderByColumn Ascending="true">
+                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                      </OrderByColumn>
+                                                      <OrderByColumn Ascending="true">
+                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                      </OrderByColumn>
+                                                      <OrderByColumn Ascending="false">
+                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="Date_Insert" />
+                                                      </OrderByColumn>
+                                                    </OrderBy>
+                                                    <RelOp AvgRowSize="129" EstimateCPU="6.94395" EstimateIO="0.000351914" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2291340" LogicalOp="Sort" NodeId="10" Parallel="true" PhysicalOp="Sort" EstimatedTotalSubtreeCost="13062.1">
+                                                      <OutputList>
+                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN1" />
+                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="M_CITY" />
+                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ST_ALPH" />
+                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ZIP" />
+                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN2" />
+                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="Date_Insert" />
+                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                                                      </OutputList>
+                                                      <MemoryFractions Input="0.231784" Output="1" />
+                                                      <Sort Distinct="false">
+                                                        <OrderBy>
+                                                          <OrderByColumn Ascending="true">
+                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                          </OrderByColumn>
+                                                          <OrderByColumn Ascending="true">
+                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                          </OrderByColumn>
+                                                          <OrderByColumn Ascending="false">
+                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="Date_Insert" />
+                                                          </OrderByColumn>
+                                                        </OrderBy>
+                                                        <RelOp AvgRowSize="129" EstimateCPU="8.76912" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2291340" LogicalOp="Right Outer Join" NodeId="11" Parallel="true" PhysicalOp="Hash Match" EstimatedTotalSubtreeCost="13055.2">
+                                                          <OutputList>
+                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN1" />
+                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="M_CITY" />
+                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ST_ALPH" />
+                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ZIP" />
+                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN2" />
+                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="Date_Insert" />
+                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                                                          </OutputList>
+                                                          <MemoryFractions Input="0.851669" Output="0.654265" />
+                                                          <Hash>
+                                                            <DefinedValues />
+                                                            <HashKeysBuild>
+                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="isoClaimId" />
+                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="involvedPartySequenceId" />
+                                                            </HashKeysBuild>
+                                                            <HashKeysProbe>
+                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                            </HashKeysProbe>
+                                                            <ProbeResidual>
+                                                              <ScalarOperator ScalarString="[ClaimSearch_Prod].[dbo].[CLT00004].[I_ALLCLM]=[ClaimSearch_Prod].[dbo].[Address].[isoClaimId] as [ExistingAddress].[isoClaimId] AND [ClaimSearch_Prod].[dbo].[CLT00004].[I_NM_ADR]=[ClaimSearch_Prod].[dbo].[Address].[involvedPartySequenceId] as [ExistingAddress].[involvedPartySequenceId]">
+                                                                <Logical Operation="AND">
+                                                                  <ScalarOperator>
+                                                                    <Compare CompareOp="EQ">
+                                                                      <ScalarOperator>
+                                                                        <Identifier>
+                                                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                                        </Identifier>
+                                                                      </ScalarOperator>
+                                                                      <ScalarOperator>
+                                                                        <Identifier>
+                                                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="isoClaimId" />
+                                                                        </Identifier>
+                                                                      </ScalarOperator>
+                                                                    </Compare>
+                                                                  </ScalarOperator>
+                                                                  <ScalarOperator>
+                                                                    <Compare CompareOp="EQ">
+                                                                      <ScalarOperator>
+                                                                        <Identifier>
+                                                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                                        </Identifier>
+                                                                      </ScalarOperator>
+                                                                      <ScalarOperator>
+                                                                        <Identifier>
+                                                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="involvedPartySequenceId" />
+                                                                        </Identifier>
+                                                                      </ScalarOperator>
+                                                                    </Compare>
+                                                                  </ScalarOperator>
+                                                                </Logical>
+                                                              </ScalarOperator>
+                                                            </ProbeResidual>
+                                                            <RelOp AvgRowSize="34" EstimateCPU="1.17914" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="6852890" LogicalOp="Repartition Streams" NodeId="12" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="44.9838">
+                                                              <OutputList>
+                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="isoClaimId" />
+                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="involvedPartySequenceId" />
+                                                              </OutputList>
+                                                              <Parallelism PartitioningType="Hash">
+                                                                <PartitionColumns>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="isoClaimId" />
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="involvedPartySequenceId" />
+                                                                </PartitionColumns>
+                                                                <RelOp AvgRowSize="34" EstimateCPU="0.235573" EstimateIO="43.5691" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="6852890" LogicalOp="Index Scan" NodeId="13" Parallel="true" PhysicalOp="Index Scan" EstimatedTotalSubtreeCost="43.8046" TableCardinality="6852890">
+                                                                  <OutputList>
+                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="isoClaimId" />
+                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="involvedPartySequenceId" />
+                                                                  </OutputList>
+                                                                  <IndexScan Ordered="false" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false">
+                                                                    <DefinedValues>
+                                                                      <DefinedValue>
+                                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="addressId" />
+                                                                      </DefinedValue>
+                                                                      <DefinedValue>
+                                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="isoClaimId" />
+                                                                      </DefinedValue>
+                                                                      <DefinedValue>
+                                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Alias="[ExistingAddress]" Column="involvedPartySequenceId" />
+                                                                      </DefinedValue>
+                                                                    </DefinedValues>
+                                                                    <Object Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[Address]" Index="[NIX_Address_isoClaimId_involvedPartySequenceId]" Alias="[ExistingAddress]" IndexKind="NonClustered" />
+                                                                  </IndexScan>
+                                                                </RelOp>
+                                                              </Parallelism>
+                                                            </RelOp>
+                                                            <RelOp AvgRowSize="121" EstimateCPU="1.05058" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2291340" LogicalOp="Repartition Streams" NodeId="14" Parallel="true" PhysicalOp="Parallelism" EstimatedTotalSubtreeCost="13001.4">
+                                                              <OutputList>
+                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN1" />
+                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="M_CITY" />
+                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ST_ALPH" />
+                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ZIP" />
+                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN2" />
+                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="Date_Insert" />
+                                                              </OutputList>
+                                                              <Parallelism PartitioningType="Hash">
+                                                                <PartitionColumns>
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                                </PartitionColumns>
+                                                                <RelOp AvgRowSize="121" EstimateCPU="0.299307" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2291340" LogicalOp="Inner Join" NodeId="15" Parallel="true" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="13000.3">
+                                                                  <OutputList>
+                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN1" />
+                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="M_CITY" />
+                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ST_ALPH" />
+                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ZIP" />
+                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN2" />
+                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="Date_Insert" />
+                                                                  </OutputList>
+                                                                  <NestedLoops Optimized="true" WithUnorderedPrefetch="true">
+                                                                    <OuterReferences>
+                                                                      <ColumnReference Column="Bmk1006" />
+                                                                      <ColumnReference Column="Expr1046" />
+                                                                    </OuterReferences>
+                                                                    <RelOp AvgRowSize="43" EstimateCPU="0.299307" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2291340" LogicalOp="Compute Scalar" NodeId="18" Parallel="true" PhysicalOp="Compute Scalar" EstimatedTotalSubtreeCost="5808.84">
+                                                                      <OutputList>
+                                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                                        <ColumnReference Column="Bmk1006" />
+                                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                                        <ColumnReference Column="Expr1045" />
+                                                                      </OutputList>
+                                                                      <ComputeScalar>
+                                                                        <DefinedValues>
+                                                                          <DefinedValue>
+                                                                            <ColumnReference Column="Expr1045" />
+                                                                            <ScalarOperator ScalarString="BmkToPage([Bmk1006])">
+                                                                              <Intrinsic FunctionName="BmkToPage">
+                                                                                <ScalarOperator>
+                                                                                  <Identifier>
+                                                                                    <ColumnReference Column="Bmk1006" />
+                                                                                  </Identifier>
+                                                                                </ScalarOperator>
+                                                                              </Intrinsic>
+                                                                            </ScalarOperator>
+                                                                          </DefinedValue>
+                                                                        </DefinedValues>
+                                                                        <RelOp AvgRowSize="43" EstimateCPU="0.299307" EstimateIO="0" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2291340" LogicalOp="Inner Join" NodeId="19" Parallel="true" PhysicalOp="Nested Loops" EstimatedTotalSubtreeCost="5808.84">
+                                                                          <OutputList>
+                                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                                            <ColumnReference Column="Bmk1006" />
+                                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                                          </OutputList>
+                                                                          <NestedLoops Optimized="false" WithUnorderedPrefetch="true">
+                                                                            <OuterReferences>
+                                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                                              <ColumnReference Column="Expr1044" />
+                                                                            </OuterReferences>
+                                                                            <RelOp AvgRowSize="22" EstimateCPU="0.0763601" EstimateIO="4.06238" EstimateRebinds="0" EstimateRewinds="0" EstimateRows="2221240" LogicalOp="Clustered Index Scan" NodeId="21" Parallel="true" PhysicalOp="Clustered Index Scan" EstimatedTotalSubtreeCost="4.13874" TableCardinality="2221240">
+                                                                              <OutputList>
+                                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                                              </OutputList>
+                                                                              <IndexScan Ordered="true" ScanDirection="FORWARD" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false">
+                                                                                <DefinedValues>
+                                                                                  <DefinedValue>
+                                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                                                  </DefinedValue>
+                                                                                </DefinedValues>
+                                                                                <Object Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Index="[PK_FireMarshalDriver_isoClaimId]" IndexKind="Clustered" />
+                                                                              </IndexScan>
+                                                                            </RelOp>
+                                                                            <RelOp AvgRowSize="30" EstimateCPU="0.000158135" EstimateIO="0.003125" EstimateRebinds="2221240" EstimateRewinds="0.574178" EstimateRows="1.03156" LogicalOp="Index Seek" NodeId="22" Parallel="true" PhysicalOp="Index Seek" EstimatedTotalSubtreeCost="5804.4" TableCardinality="1535260000">
+                                                                              <OutputList>
+                                                                                <ColumnReference Column="Bmk1006" />
+                                                                                <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                                              </OutputList>
+                                                                              <IndexScan Ordered="true" ScanDirection="FORWARD" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false">
+                                                                                <DefinedValues>
+                                                                                  <DefinedValue>
+                                                                                    <ColumnReference Column="Bmk1006" />
+                                                                                  </DefinedValue>
+                                                                                  <DefinedValue>
+                                                                                    <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                                                  </DefinedValue>
+                                                                                </DefinedValues>
+                                                                                <Object Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Index="[IDX_ALLCLAIMID]" IndexKind="NonClustered" />
+                                                                                <SeekPredicates>
+                                                                                  <SeekPredicateNew>
+                                                                                    <SeekKeys>
+                                                                                      <Prefix ScanType="EQ">
+                                                                                        <RangeColumns>
+                                                                                          <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_ALLCLM" />
+                                                                                        </RangeColumns>
+                                                                                        <RangeExpressions>
+                                                                                          <ScalarOperator ScalarString="[ClaimSearch_Prod].[dbo].[FireMarshalDriver].[isoClaimId]">
+                                                                                            <Identifier>
+                                                                                              <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[FireMarshalDriver]" Column="isoClaimId" />
+                                                                                            </Identifier>
+                                                                                          </ScalarOperator>
+                                                                                        </RangeExpressions>
+                                                                                      </Prefix>
+                                                                                    </SeekKeys>
+                                                                                  </SeekPredicateNew>
+                                                                                </SeekPredicates>
+                                                                              </IndexScan>
+                                                                            </RelOp>
+                                                                          </NestedLoops>
+                                                                        </RelOp>
+                                                                      </ComputeScalar>
+                                                                    </RelOp>
+                                                                    <RelOp AvgRowSize="94" EstimateCPU="0.0001581" EstimateIO="0.003125" EstimateRebinds="2291340" EstimateRewinds="0" EstimateRows="2291340" LogicalOp="RID Lookup" NodeId="27" Parallel="true" PhysicalOp="RID Lookup" EstimatedTotalSubtreeCost="7191.19" TableCardinality="1535260000">
+                                                                      <OutputList>
+                                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN1" />
+                                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="M_CITY" />
+                                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ST_ALPH" />
+                                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ZIP" />
+                                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN2" />
+                                                                        <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="Date_Insert" />
+                                                                      </OutputList>
+                                                                      <IndexScan Lookup="true" Ordered="true" ScanDirection="FORWARD" ForcedIndex="false" ForceSeek="false" ForceScan="false" NoExpandHint="false">
+                                                                        <DefinedValues>
+                                                                          <DefinedValue>
+                                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="I_NM_ADR" />
+                                                                          </DefinedValue>
+                                                                          <DefinedValue>
+                                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN1" />
+                                                                          </DefinedValue>
+                                                                          <DefinedValue>
+                                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="M_CITY" />
+                                                                          </DefinedValue>
+                                                                          <DefinedValue>
+                                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ST_ALPH" />
+                                                                          </DefinedValue>
+                                                                          <DefinedValue>
+                                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="C_ZIP" />
+                                                                          </DefinedValue>
+                                                                          <DefinedValue>
+                                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="T_ADR_LN2" />
+                                                                          </DefinedValue>
+                                                                          <DefinedValue>
+                                                                            <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="Date_Insert" />
+                                                                          </DefinedValue>
+                                                                        </DefinedValues>
+                                                                        <Object Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" TableReferenceId="-1" IndexKind="Heap" />
+                                                                        <SeekPredicates>
+                                                                          <SeekPredicateNew>
+                                                                            <SeekKeys>
+                                                                              <Prefix ScanType="EQ">
+                                                                                <RangeColumns>
+                                                                                  <ColumnReference Column="Bmk1006" />
+                                                                                </RangeColumns>
+                                                                                <RangeExpressions>
+                                                                                  <ScalarOperator ScalarString="[Bmk1006]">
+                                                                                    <Identifier>
+                                                                                      <ColumnReference Column="Bmk1006" />
+                                                                                    </Identifier>
+                                                                                  </ScalarOperator>
+                                                                                </RangeExpressions>
+                                                                              </Prefix>
+                                                                            </SeekKeys>
+                                                                          </SeekPredicateNew>
+                                                                        </SeekPredicates>
+                                                                        <Predicate>
+                                                                          <ScalarOperator ScalarString="[ClaimSearch_Prod].[dbo].[CLT00004].[Date_Insert]&gt;=[@dateFilterInt]">
+                                                                            <Compare CompareOp="GE">
+                                                                              <ScalarOperator>
+                                                                                <Identifier>
+                                                                                  <ColumnReference Database="[ClaimSearch_Prod]" Schema="[dbo]" Table="[CLT00004]" Column="Date_Insert" />
+                                                                                </Identifier>
+                                                                              </ScalarOperator>
+                                                                              <ScalarOperator>
+                                                                                <Identifier>
+                                                                                  <ColumnReference Column="@dateFilterInt" />
+                                                                                </Identifier>
+                                                                              </ScalarOperator>
+                                                                            </Compare>
+                                                                          </ScalarOperator>
+                                                                        </Predicate>
+                                                                      </IndexScan>
+                                                                    </RelOp>
+                                                                  </NestedLoops>
+                                                                </RelOp>
+                                                              </Parallelism>
+                                                            </RelOp>
+                                                          </Hash>
+                                                        </RelOp>
+                                                      </Sort>
+                                                    </RelOp>
+                                                  </Parallelism>
+                                                </RelOp>
+                                              </Segment>
+                                            </RelOp>
+                                          </SequenceProject>
+                                        </RelOp>
+                                      </Parallelism>
+                                    </RelOp>
+                                  </ComputeScalar>
+                                </RelOp>
+                                <Predicate>
+                                  <ScalarOperator ScalarString="[Expr1012]=(1)">
+                                    <Compare CompareOp="EQ">
+                                      <ScalarOperator>
+                                        <Identifier>
+                                          <ColumnReference Column="Expr1012" />
+                                        </Identifier>
+                                      </ScalarOperator>
+                                      <ScalarOperator>
+                                        <Const ConstValue="(1)" />
+                                      </ScalarOperator>
+                                    </Compare>
+                                  </ScalarOperator>
+                                </Predicate>
+                              </Filter>
+                            </RelOp>
+                          </Parallelism>
+                        </RelOp>
+                      </Top>
+                    </RelOp>
+                  </ComputeScalar>
+                </RelOp>
+              </Update>
+            </RelOp>
+          </QueryPlan>
+        </StmtSimple>
+      </Statements>
+    </Batch>
+  </BatchSequence>
+</ShowPlanXML>

@@ -1,0 +1,2 @@
+UPDATE iso21.criminal_records_charges set chargedescription ='FRAUD CDP',casefiledate='2005-06-28' where dproc='2020-02-04 09:59:52.094657' and personid='NJGLOUXML-1235825';
+UPDATE iso21.criminal_records_person set state ='PA' where dproc='2020-02-04 09:59:52.094657' and personid='NJGLOUXML-1235825';
